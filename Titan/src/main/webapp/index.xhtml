@@ -3,28 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head>
-        <title>Facelet Title</title>
-        <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
-    </h:head>
-    <h:body>
-        <h1>Titan-Projekt</h1>
-
-        <h:panelGrid columns="1">
-            <h:outputLabel styleClass="red" value="css-test"/>
-            <hr/>
-            <h2>ejb-Konsum - Taskplaner</h2>
-            <ui:include src="taskplanner.xhtml"/>
-            <hr/>
-            <h2>REST-Konsum - </h2>
-            <ui:include src="rest.xhtml"/>
-            <hr/>
-            <h2>WS-Konsum - </h2>
-            <ui:include src="ws.xhtml"/>
-            <hr/>
-            <h2>MDB,der konsumiert</h2>
-            <ui:include src="mdb.xhtml"/>
-        </h:panelGrid>
-    </h:body>
+  <h:head>
+    <title>Facelet Title</title>
+    <h:outputStylesheet library="css" name="bootstrap.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
+    <h:outputScript library="js" name="jfeed.js"/>
+  </h:head>
+  <h:body>
+    <div class="navbar">
+      <div class=" navbar-inner">
+        <div class="container">
+        <a class="brand" href="#">Titan-Projekt</a>
+        <ul class="nav">
+          <li><a href="#ejb">EJB</a></li>
+          <li><a href="#rest">REST</a></li>
+          <li><a href="#ws">WS</a></li>
+          <li><a href="#mdb">MDB</a></li>
+        </ul>
+        <ul class="nav pull-right">
+          <li class="divider-vertical"></li>
+          <li>ESA 2012/2013</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+    <h:panelGrid columns="1" class="container">
+      <!--<h:outputLabel styleClass="red" value="css-test"/>-->
+      <div id="ejb" class="hero-unit">
+        <h2>EJB-Konsum<small> | Taskplaner</small></h2>
+        <ui:include src="taskplanner.xhtml"/>
+      </div>
+      <div id="rest" class="hero-unit">
+        <h2>REST-Konsum <small> | </small> </h2>
+        <ui:include src="rest.xhtml"/>
+      </div>
+      <div id="ws" class="hero-unit">
+        <h2>WS-Konsum <small> | </small></h2>
+        <ui:include src="ws.xhtml"/>
+      </div>
+      <div id="mdb" class="hero-unit">
+        <h2>MDB <small> | RSS-Feed</small></h2>
+        <ui:include src="mdb.xhtml"/>
+      </div>
+    </h:panelGrid>
+  </h:body>
 </html>
 

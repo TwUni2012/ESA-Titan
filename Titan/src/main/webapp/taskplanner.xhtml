@@ -6,24 +6,33 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>Taskplanner with Login</div>
-        <h:form id="login">
-            <h:panelGrid columns="2">
-
-                Name
-                <h:inputText value="n"/>
-                <!--<h:panelGrid columns="2">-->
-
-                Password
-                <h:inputText/>
-                <br/>
-                <h:commandButton value="Login" /> <!-- action, check login and open the correct taskplanner -->
-                <!--<h:commandButton value="register"/>-->
-            </h:panelGrid>
-        </h:form>
-    </body>
+  <h:head>
+    <h:outputStylesheet library="css" name="bootstrap.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
+    <h:outputScript library="js" name="jfeed.js"/>
+  </h:head>
+  <body>
+    <div>
+      <h2>Taskplanner <small>with Login</small></h2>
+      <h:form id="login" class="form-horizontal">
+        <table class="table" style="width: 100%">
+          <tr>
+            <td><label>Name</label></td>
+            <td><h:inputText value="Name"/></td>
+          </tr>
+          <tr>
+            <td><label>Password</label></td>
+            <td><h:inputText value="Password"/></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><h:commandButton class="btn btn-success" value="Login" /> 
+              <!--action, check login and open the correct taskplanner--> 
+            </td>
+          </tr>
+        </table>
+      </h:form>
+    </div>
+  </body>
 </html>
