@@ -5,7 +5,8 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
   <h:head>
     <h:outputStylesheet library="css" name="bootstrap.css"/>
     <h:outputStylesheet library="css" name="style.css"/>
@@ -16,20 +17,14 @@ and open the template in the editor.
     <div>
       <h2>Neuen RSS-Feed senden:</h2>
       <hr/>
-      <form class="form-inline">
+      <form class="form-inline" method="post" action="RSSServlet">
         <input type="text" placeholder="RSS-Feed" name="rssurl"/>
         <input class="btn btn-success" type="submit" value="Senden"/>
       </form>
       <hr/>
       <h2>Eingetragene RSS-Feeds:</h2>
-      <table class="table table-striped" style="width:100%">
-        <thead>
-          <tr>
-            <td>RSS-Feed:</td>
-            <td>Datum:</td>
-          </tr>
-        </thead>
-      </table>
+      <!--<a href="rssfeed/rSSFeed/List.xhtml">List</a>-->
+      <ui:include src="rssfeed/rSSFeed/List.xhtml"/>
     </div>
   </body>
 </html>

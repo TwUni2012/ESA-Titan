@@ -1,0 +1,11 @@
+JMS-Connection Factory
+
+Poolname:       QueueFactory
+JNDI-Name:      QueueFactory
+Ressourcentyp:  javax.jms.QueueConnectionFactory
+
+
+JMS-Zielressource
+JNDI-Name:      RSSQueue
+Name des physischen Ziels :  RSSQueue
+
