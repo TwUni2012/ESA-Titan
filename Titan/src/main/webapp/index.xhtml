@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+    </h:head>
+    <h:body>
+        <h1>Titan-Projekt</h1>
+
+        <h:panelGrid columns="1">
+            <h:outputLabel styleClass="red" value="css-test"/>
+            <hr/>
+            <h2>ejb-Konsum - Taskplaner</h2>
+            <ui:include src="taskplanner.xhtml"/>
+            <hr/>
+            <h2>REST-Konsum - </h2>
+            <ui:include src="rest.xhtml"/>
+            <hr/>
+            <h2>WS-Konsum - </h2>
+            <ui:include src="ws.xhtml"/>
+            <hr/>
+            <h2>MDB,der konsumiert</h2>
+            <ui:include src="mdb.xhtml"/>
+        </h:panelGrid>
+    </h:body>
+</html>
+

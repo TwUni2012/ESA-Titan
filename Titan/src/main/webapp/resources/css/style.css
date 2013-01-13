@@ -1,0 +1,19 @@
+/* 
+    Document   : style
+    Created on : 13.01.2013, 10:21:37
+    Author     : tiloW7-2012
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+
+    
+}
+
+.red {
+    color: red;
+}
+
+
