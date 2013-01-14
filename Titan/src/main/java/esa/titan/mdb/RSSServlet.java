@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RSSServlet extends HttpServlet {
   @Resource(mappedName = "RSSQueue")
   private Queue rSSQueue;
-  @Resource(mappedName = "JSMRss")
+  @Resource(mappedName = "QueueFactory")
   private ConnectionFactory jSMRss;
 
   /**
