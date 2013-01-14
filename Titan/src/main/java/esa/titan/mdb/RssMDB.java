@@ -43,32 +43,22 @@ public class RssMDB implements MessageListener {
     } catch (JMSException ex) {
       Logger.getLogger(RssMDB.class.getName()).log(Level.SEVERE, null, ex);
     }
-
-
-    //RSSFeed rf = new RSSFeed();
-    //RSSFeedFacade facade = new RSSFeedFacade();
-    //facade.create(rf);
     System.out.println(msg.toString());
 
-    
-    
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("esa_Titan_war_1.0-SNAPSHOTPU");
     EntityManager em = emf.createEntityManager();
-
-//    em.getTransaction().begin();
-
-
+    
+    // ohne JTA
+    //    em.getTransaction().begin();
+    //    Fehler: Use UserTransaction
     RSSFeed rf = new RSSFeed();
     rf.setFeed(msg);
     System.out.println(rf);
     em.persist(rf);
     em.flush();
-
     RSSFeed rf2 = em.find(RSSFeed.class, rf.getId());
     System.out.println("RSSFeed-ID: " + rf2.getClass());
-
-//    em.getTransaction().commit();
-
+    //    em.getTransaction().commit();
     em.close();
     emf.close();
 

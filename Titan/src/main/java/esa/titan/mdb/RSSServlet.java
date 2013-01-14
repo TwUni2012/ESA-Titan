@@ -51,6 +51,7 @@ public class RSSServlet extends HttpServlet {
     String str = request.getParameter("rssurl");
     try {
       this.sendJMSMessageToRSSQueue(str);
+      
     } catch (JMSException ex) {
       Logger.getLogger(RSSServlet.class.getName()).log(Level.SEVERE, null, ex);
     }
