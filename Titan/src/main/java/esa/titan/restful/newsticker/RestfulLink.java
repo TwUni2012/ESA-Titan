@@ -19,16 +19,21 @@ import javax.inject.Named;
  */
 @ManagedBean
 //@Named
-//@SessionScoped
+@SessionScoped
 public class RestfulLink {
     
     private String domain = "http://content.guardianapis.com/";
     private String category = "world";
     private String format = "?format=xml";
     private String parameter = "&order-by=newest&date-id=date%2Flast24hours";
-
+    private static int counter = 0;
+    private String time = "";
+    private String[] countries = {"Hallo","Welt","Ich", "Hammer", "Blub"};
+    
     public RestfulLink() {
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### RestfulLink Objekt wurde erstellt");
+//        IncrementCounterThread i = new IncrementCounterThread(this);
+//        i.run();
     }
     
     public String getCategory() {
@@ -58,6 +63,38 @@ public class RestfulLink {
     public String getUrl() {
         return domain + category + format + parameter;
     }
+
+    public String getTime() {
+        if(countries.length == counter) {
+            counter = 0;
+        }
+        String result = countries[counter];
+        counter++;
+//        return Long.toString(System.currentTimeMillis());
+        return result;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+    
+    public String loadURK() {
+        String url = getUrl();
+        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "#### loadURK: " + url);
+        LoadArticles la = new LoadArticles();
+        la.load(url);
+        return "Load";
+    }
+
+    
+//    public int getCounter() {
+//        return counter;
+//    }
+//
+//    public void setCounter(int counter) {
+//        this.counter = counter;
+//    }
+    
     
     public void parse(ActionEvent e) {
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### Link soll geparst werden");

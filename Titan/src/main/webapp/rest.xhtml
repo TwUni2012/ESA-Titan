@@ -11,6 +11,7 @@ and open the template in the editor.
         <h:outputStylesheet library="css" name="style.css"/>
         <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
         <h:outputScript library="js" name="jfeed.js"/>
+        <meta http-equiv="refresh" content="10"/> 
     </h:head>
     <body>
 
@@ -21,13 +22,15 @@ and open the template in the editor.
                     <td><h:inputText value="#{restfulLink.category}" size="12" style="color: red"/></td>
                     <td><h:outputLabel value="#{restfulLink.format}" /></td>
                     <td><h:inputText value="#{restfulLink.parameter}" size="50"/></td>
-                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" action="testpage"/></td>
+                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{restfulLink.loadURK()}"/></td>
                     <!-- restfulLink.parse funktioniert mit actionListener irgendwie nicht-->
                 </tr>
             </table>
         </h:form>
         <h:outputLabel value="Rest-Link: #{restfulLink.url}"/>
-        
+        <h:outputLabel value="#{xMLParser.parse('http://content.guardianapis.com/')}"/>
+        <h:outputLabel value="Current-SystemTime: #{restfulLink.time}"/>
+        <!--<h:outputLabel value="Zahl: {restfulLink.counter}"/>-->
     </body>
 </html>
 

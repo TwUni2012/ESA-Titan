@@ -21,15 +21,16 @@ import javax.faces.bean.ManagedBean;
  *
  * @author tiloW7-2012
  */
+@ManagedBean
 public class XMLParser {
 
-    private String url;
+//    private String url;
 
-    public XMLParser(String url) {
-        this.url = url;
+    public XMLParser() {
+//        this.url = url;
     }
 
-    public void parse() {
+    public void parse(String url) {
         Logger.getLogger(XMLParser.class.getName()).log(Level.INFO, url + " wird geparst");
         URL u;
         InputStream is = null;
@@ -42,7 +43,7 @@ public class XMLParser {
             is = u.openStream();
             dis = new DataInputStream(new BufferedInputStream(is));
             while ((s = dis.readLine()) != null) {
-                Logger.getLogger(XMLParser.class.getName()).log(Level.INFO, s);
+//                Logger.getLogger(XMLParser.class.getName()).log(Level.INFO, s);
 //                System.out.println(s);
             }
         } catch (MalformedURLException mue) {
