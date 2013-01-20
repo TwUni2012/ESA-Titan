@@ -100,5 +100,6 @@ public class RestfulLink {
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### Link soll geparst werden");
 //        XMLParser xmlP = new XMLParser(this.getUrl());
 //        xmlP.parse();
+//         xMLParser.parse('http://content.guardianapis.com')
     }
 }
