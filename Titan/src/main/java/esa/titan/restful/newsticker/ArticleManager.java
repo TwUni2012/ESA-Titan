@@ -19,16 +19,16 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class ArticleManager {
 
-    private Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
-            "2013-01-22T16:01:00Z",
-            "http://www.guardian.co.uk/uk/2013/jan/22/french-gas-cloud-stink-south-east",
-            "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/1/22/1358860652111/Lubrizol-factory-in-Rouen-004.jpg",
-            "As a metaphor made literal it was almost");
-    private ArrayList<Article> articles = new ArrayList<Article>();
+//    private Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
+//            "2013-01-22T16:01:00Z",
+//            "http://www.guardian.co.uk/uk/2013/jan/22/french-gas-cloud-stink-south-east",
+//            "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/1/22/1358860652111/Lubrizol-factory-in-Rouen-004.jpg",
+//            "As a metaphor made literal it was almost");
+    private static ArrayList<Article> articles = new ArrayList<Article>();
     private int i = 0;
+    private int counter = 0;
 
     public ArticleManager() {
-        articles.add(dummy);
     }
 
     public String getArticleTitle() {
@@ -53,11 +53,20 @@ public class ArticleManager {
     }
 
     private Article getCurrentArticle() {
+        if (counter == 4) {
+            i++;
+            counter = 0;
+        }
+        counter++;
+        if (articles.size() == i) {
+            i = 0;
+        }
+        
         return articles.get(i);
     }
 
-    public void setArticles(ArrayList<Article> articles) {
-        this.articles = articles;
+    public static void setArticles(ArrayList<Article> articles) {
+        ArticleManager.articles = articles;
     }
 
     public void openExternURL() throws IOException {

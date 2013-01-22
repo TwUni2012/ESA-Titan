@@ -22,25 +22,25 @@ public class LoadArticles {
     public void load(String url) {
         //load the content of the article to extract the preview image url
 
-            /*
-             HttpURLConnection connection = (HttpURLConnection) (new URL(url)).openConnection();
-             connection.setRequestMethod("GET");
-             connection.connect();
+        /*
+         HttpURLConnection connection = (HttpURLConnection) (new URL(url)).openConnection();
+         connection.setRequestMethod("GET");
+         connection.connect();
 
-             // read the response from the restful service
-             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-             String line;
-             StringBuffer result = new StringBuffer();
-             while ((line = reader.readLine()) != null) {
-             //look for <meta property="og:image" content="..."/>
-             Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, line);
-             result.append(line);
+         // read the response from the restful service
+         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+         String line;
+         StringBuffer result = new StringBuffer();
+         while ((line = reader.readLine()) != null) {
+         //look for <meta property="og:image" content="..."/>
+         Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, line);
+         result.append(line);
                 
-             }
-             reader.close();
-             parseHTML(result.toString());
-             * */
-            parseHTML(url);
+         }
+         reader.close();
+         parseHTML(result.toString());
+         * */
+        parseHTML(url);
     }
 
     public ArrayList<Article> parseHTML(String url) {
@@ -75,11 +75,14 @@ public class LoadArticles {
                     }
                     try {
                         Element webUrlContentElements = imageDoc.getElementById("article-body-blocks");
-                        webUrlContent = webUrlContentElements.text();
+                        String content = webUrlContentElements.text().substring(0, 250);
+                        int lastBlanc = content.lastIndexOf(" ");
+                        webUrlContent = content.substring(0, lastBlanc) + " ...";
                     } catch (Exception eeee) {
                     }
                 } catch (Exception ee) {
                 }
+                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "#######");
                 Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "# webTitle: " + webTitle);
                 Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "### webPublicationDate: " + webPublicationDate);
                 Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "###### webUrl: " + webUrl);

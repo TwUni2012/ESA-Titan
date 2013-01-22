@@ -22,10 +22,11 @@ import javax.inject.Named;
  * @author tiloW7-2012
  */
 @ManagedBean
-//@Named
 @SessionScoped
 public class RestfulLink {
 
+    // TODO Refactoring, Fehlerbehandlung, wenn Article nicht verfuegbar, bessere Objektverwaltung, Laden der Artikel in Asynchrone Methode auslagern
+    
 //    @EJB
 //    private ArticleManager articleManager;
     private String domain = "http://content.guardianapis.com/";
@@ -40,6 +41,7 @@ public class RestfulLink {
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### RestfulLink Objekt wurde erstellt");
 //        IncrementCounterThread i = new IncrementCounterThread(this);
 //        i.run();
+        loadURK();
     }
 
     public String getCategory() {
@@ -89,7 +91,7 @@ public class RestfulLink {
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "#### loadURK: " + url);
         LoadArticles la = new LoadArticles();
         ArrayList<Article> articles = la.parseHTML(url);
-//        articleManager.setArticles(articles);
+        ArticleManager.setArticles(articles);
 
         return "Load";
     }
