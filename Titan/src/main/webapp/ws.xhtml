@@ -5,7 +5,9 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
   <h:head>
     <h:outputStylesheet library="css" name="bootstrap.css"/>
     <h:outputStylesheet library="css" name="style.css"/>
@@ -13,6 +15,51 @@ and open the template in the editor.
     <h:outputScript library="js" name="jfeed.js"/>
   </h:head>
   <body>
-    <div>WS</div>
+    <div>
+        <h:form id="soapform" class="form-horizontal">
+            <table class="table" style="width: 100%">
+                <tr>
+                    <td>
+                        <h:inputText value="#{globalWeatherService.country}" size="12"/>
+                    </td>
+                    <td>
+                        <h:commandButton 
+                            class="btn" 
+                            id="loadsoap" 
+                            value="Load Weather Stations" 
+                            disabled="#{globalWeatherService.loadCityButtonDisabled}"
+                            actionListener="#{globalWeatherService.loadCities()}"
+                            />
+                    </td>
+                    <td>
+                        <h:selectOneMenu 
+                            value="#{globalWeatherService.cityName}" 
+                            id="stations">
+                            <f:selectItems 
+                                value="#{globalWeatherService.cities}" 
+                                var="city" 
+                                itemLabel="#{city.name}"
+                                itemValue="#{city.name}"
+                                />
+                        </h:selectOneMenu>
+                    </td>
+                    <td>
+                        <h:commandButton 
+                            class="btn btn-success" 
+                            id="loadweather" 
+                            value="Load Weather"
+                            disabled="#{globalWeatherService.updateWeatherButtonDisabled}"
+                            actionListener="#{globalWeatherService.updateWeather()}"/>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </div>
+
+      <right>
+    <ui:include src="weatherservice/weather.xhtml">
+    </ui:include>
+          </right>
+
   </body>
 </html>

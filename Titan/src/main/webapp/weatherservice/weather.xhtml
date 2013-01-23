@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
+        <h:outputScript library="js" name="jfeed.js"/>
+        <h:outputScript library="js" name="wz_jsgraphics.js"/>
+        <script type="text/javascript">
+            function toRadians(angle){
+                return angle*(Math.PI/180);
+            }
+        </script>
+    </h:head>
+    <body>
+        <div style="display: #{globalWeatherService.weatherPanelVisibility}">
+            
+            <h3>Weather in #{globalWeatherService.cityName}, #{globalWeatherService.country}<small> | Last Update: #{globalWeatherService.gmtTime}</small></h3>
+            
+            <table style="border-style: hidden;width: 100%">
+                <tr>
+                    <td align="center" valign="top">
+                        <h3>
+                            #{globalWeatherService.temperature} °C
+                        </h3>
+                        <h4>
+                            #{globalWeatherService.condition}
+                        </h4>
+                        <h4>
+                            Wind: #{globalWeatherService.windspeed} km/h
+                        </h4>
+                    </td>
+
+                    <td align="center">
+                        <h4>
+                            Temperature
+                        </h4>
+                        <div 
+                            id="canvasThermometer" 
+                            style="
+                                position:relative;
+                                height:#{globalWeatherService.widgetSize}px;
+                                width:#{globalWeatherService.widgetSize}px;
+                            ">
+                            <img 
+                                src="weatherservice/img/thermometer.png" 
+                                style="
+                                    width:#{globalWeatherService.widgetSize}px;
+                                    height:#{globalWeatherService.widgetSize}px;
+                            "/>
+                        </div>
+                    </td>
+
+                    <td align="center">
+                        <h4>
+                            Wind Direction
+                        </h4>
+                        <div 
+                            id="canvasWind" 
+                            style="
+                                position:relative;
+                                height:#{globalWeatherService.widgetSize}px;
+                                width:#{globalWeatherService.widgetSize}px;
+                            ">
+                            <img 
+                                src="weatherservice/img/Windrose.png" 
+                                style="
+                                    width:#{globalWeatherService.widgetSize}px;
+                                    height:#{globalWeatherService.widgetSize}px;
+                                "/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                
+                /*
+                 * windrose zeichnen
+                 */
+                var widgetSize = #{globalWeatherService.widgetSize};
+                var centerX=widgetSize/2;
+                var centerY=widgetSize/2;
+                var markerWidth=widgetSize/15;
+
+                var g = new jsGraphics("canvasWind");
+
+                var arrowLength=(widgetSize-3*markerWidth)/2;
+                var arrowAngle=15;
+
+                var angle=#{globalWeatherService.windDirection}-180;
+                angle=angle%360;
+                var radiant=toRadians(angle);
+                
+                var x=-(Math.sin(radiant)*arrowLength);
+                var y=(Math.cos(radiant)*arrowLength);
+                
+                /*
+                 * eckpunkte des pfeils berechnen und in 2 arrays speichern
+                 */
+                var arrowPolygonX = new Array();
+                var arrowPolygonY = new Array();
+                
+                arrowPolygonX.push(centerX-x);
+                arrowPolygonY.push(centerY-y); 
+                
+                radiant=toRadians(angle+arrowAngle);
+                arrowPolygonX.push(centerX-(Math.sin(radiant)*arrowLength)); 
+                arrowPolygonY.push(centerY+(Math.cos(radiant)*arrowLength));
+                
+                arrowPolygonX.push(centerX+x/2); 
+                arrowPolygonY.push(centerY+y/2);
+
+                g.setColor("#bbbbbb");
+                g.setStroke(1);
+ 
+                g.fillPolygon(arrowPolygonX, arrowPolygonY);
+
+                radiant=toRadians(angle-arrowAngle);
+                arrowPolygonX[1]=centerX-(Math.sin(radiant)*arrowLength); 
+                arrowPolygonY[1]=centerY+(Math.cos(radiant)*arrowLength);
+
+                g.setColor("#000000");
+                g.setStroke(1);
+ 
+                g.fillPolygon(arrowPolygonX, arrowPolygonY);
+
+                g.paint();
+                
+            </script>
+            
+            <script type="text/javascript">
+                /*
+                 * thermometer zeichnen
+                 */
+                var g = new jsGraphics("canvasThermometer");
+                
+                var widgetSize = #{globalWeatherService.widgetSize};
+                var temperature = #{globalWeatherService.temperature};
+                
+                var handLength = widgetSize/2-widgetSize/10;
+                
+                var minTemperature = 25; // - °C
+                var minDegrees = 212; //°
+                var degreesPerCelsius = 3.794818;
+                var center = widgetSize/2;
+                
+                var angle = toRadians((minDegrees+(temperature+minTemperature)*degreesPerCelsius) % 360);
+                
+                /*
+                 * eckpunkte des pfeils berechnen und in 2 arrays speichern
+                 */
+                g.setColor("#333333");
+                g.setStroke(2);
+                
+                g.drawLine(
+                    center,
+                    center,
+                    center+(Math.sin(angle)*handLength),
+                    center-(Math.cos(angle)*handLength)
+                );
+                        
+                g.paint();
+
+            </script>
+        </div>
+    </body>
+</html>

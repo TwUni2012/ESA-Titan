@@ -20,4 +20,8 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+    <converter>
+        <converter-id>CityConverter</converter-id>
+        <converter-class>esa.titan.soap.weatherservice.city.CityConverter</converter-class> 
+    </converter>
 </faces-config>

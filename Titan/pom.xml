@@ -100,7 +100,83 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--
+            Plugin für WS-Import für SOAP-Wheatherservice
+            -->
+            <plugin>
+                <groupId>
+                    org.codehaus.mojo
+                </groupId>
+                <artifactId>
+                    jaxws-maven-plugin
+                </artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>
+                                wsimport
+                            </goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>
+                        true
+                    </verbose>
+                    <packageName>
+                        esa.titan.soap.weatherservice.generated
+                    </packageName>
+                    <sourceDestDir>
+                        ${basedir}/src/main/java
+                    </sourceDestDir>
+                    <!--
+                    <destDir>
+                        ${basedir}/target/jaxws
+                    </destDir>
+                    -->
+                    <wsdlUrls>
+                        <wsdlUrl>
+                            http://www.webservicex.com/globalweather.asmx?wsdl
+                        </wsdlUrl>
+                    </wsdlUrls>
+                </configuration>
+            </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-dependency-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.1,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>copy</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
     <repositories>
         <repository>
