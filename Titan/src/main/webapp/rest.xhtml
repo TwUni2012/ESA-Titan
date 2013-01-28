@@ -5,16 +5,18 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
     <h:head>
         <h:outputStylesheet library="css" name="bootstrap.css"/>
         <h:outputStylesheet library="css" name="style.css"/>
         <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
         <h:outputScript library="js" name="jfeed.js"/>
-        <meta http-equiv="refresh" content="10"/> 
     </h:head>
-    <body>
 
+    <body>
         <h:form id="restform" class="form-horizontal">
             <table class="table" style="width: 100%">
                 <tr>
@@ -23,25 +25,29 @@ and open the template in the editor.
                     <td><h:outputLabel value="#{restfulLink.format}" /></td>
                     <td><h:inputText value="#{restfulLink.parameter}" size="50"/></td>
                     <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{restfulLink.loadURK()}"/></td>
-                    <!-- restfulLink.parse funktioniert mit actionListener irgendwie nicht-->
                 </tr>
             </table>
         </h:form>
-        
+
         <h:outputLabel value="Rest-Link: #{restfulLink.url}"/>
-        <h:form>
-            <h4>
+
+        <a4j:region>
+            <h:form>
+                <a4j:poll id="poll" interval="5000" enabled="true" actionListener="#{articleManager.nextArticle()}" render="restoutputform,articleTitle"/>
+            </h:form>
+        </a4j:region>
+
+        <h:form id="articleTitle">
+            <h2>
                 <h:commandLink value="#{articleManager.articleTitle}" action="#{articleManager.openExternURL()}"/>
-            </h4>
+            </h2>
         </h:form>
         <h:form id="restoutputform" class="form-horizontal">
-            <table class="table" style="width: 53%">
+            <table class="table" style="width: 100%">
                 <tr>
                     <td><h:graphicImage alt="The image could not be found." value="#{articleManager.articleImageUrl}"/></td>
-                    <td><h:outputLabel value="#{articleManager.articlePublicationDate}"/></td>
-                </tr>
-                <tr>
                     <td><h:outputLabel value="#{articleManager.articleContent}"/></td>
+                    <td><h:outputLabel value="#{articleManager.articlePublicationDate}"/></td>
                 </tr>
             </table>
         </h:form>

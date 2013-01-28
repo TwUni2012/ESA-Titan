@@ -20,26 +20,6 @@ import org.jsoup.select.Elements;
 public class LoadArticles {
 
     public void load(String url) {
-        //load the content of the article to extract the preview image url
-
-        /*
-         HttpURLConnection connection = (HttpURLConnection) (new URL(url)).openConnection();
-         connection.setRequestMethod("GET");
-         connection.connect();
-
-         // read the response from the restful service
-         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-         String line;
-         StringBuffer result = new StringBuffer();
-         while ((line = reader.readLine()) != null) {
-         //look for <meta property="og:image" content="..."/>
-         Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, line);
-         result.append(line);
-                
-         }
-         reader.close();
-         parseHTML(result.toString());
-         * */
         parseHTML(url);
     }
 
