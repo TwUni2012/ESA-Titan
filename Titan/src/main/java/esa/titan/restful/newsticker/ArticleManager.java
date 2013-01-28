@@ -5,6 +5,7 @@
 package esa.titan.restful.newsticker;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class ArticleManager {
+public class ArticleManager implements Serializable {
 
     private Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
             "2013-01-22T16:01:00Z",

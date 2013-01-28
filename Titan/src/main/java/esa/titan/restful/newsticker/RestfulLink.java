@@ -23,7 +23,7 @@ import javax.inject.Named;
  */
 @ManagedBean
 @SessionScoped
-public class RestfulLink {
+public class RestfulLink implements Serializable{
 
     // TODO Refactoring, Fehlerbehandlung, wenn Article nicht verfuegbar, bessere Objektverwaltung, Laden der Artikel in Asynchrone Methode auslagern
     

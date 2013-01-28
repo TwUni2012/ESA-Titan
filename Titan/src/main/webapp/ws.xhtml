@@ -8,58 +8,77 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
-  <h:head>
-    <h:outputStylesheet library="css" name="bootstrap.css"/>
-    <h:outputStylesheet library="css" name="style.css"/>
-    <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
-    <h:outputScript library="js" name="jfeed.js"/>
-  </h:head>
-  <body>
-    <div>
-        <h:form id="soapform" class="form-horizontal">
-            <table class="table" style="width: 100%">
-                <tr>
-                    <td>
-                        <h:inputText value="#{globalWeatherService.country}" size="12"/>
-                    </td>
-                    <td>
-                        <h:commandButton 
-                            class="btn" 
-                            id="loadsoap" 
-                            value="Load Weather Stations" 
-                            disabled="#{globalWeatherService.loadCityButtonDisabled}"
-                            actionListener="#{globalWeatherService.loadCities()}"
-                            />
-                    </td>
-                    <td>
-                        <h:selectOneMenu 
-                            value="#{globalWeatherService.cityName}" 
-                            id="stations">
-                            <f:selectItems 
-                                value="#{globalWeatherService.cities}" 
-                                var="city" 
-                                itemLabel="#{city.name}"
-                                itemValue="#{city.name}"
-                                />
-                        </h:selectOneMenu>
-                    </td>
-                    <td>
-                        <h:commandButton 
-                            class="btn btn-success" 
-                            id="loadweather" 
-                            value="Load Weather"
-                            disabled="#{globalWeatherService.updateWeatherButtonDisabled}"
-                            actionListener="#{globalWeatherService.updateWeather()}"/>
-                    </td>
-                </tr>
-            </table>
-        </h:form>
-    </div>
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
+        <h:outputScript library="js" name="jfeed.js"/>
+    </h:head>
+    <body>
+        <div>
+            <h:form id="soapform" class="form-horizontal">
+                <table class="table" style="width: 100%">
+                    <tr>
+                        <td>
+                            <h:inputText value="#{globalWeatherService.country}" size="12"/>
+                        </td>
+                        <td>
+                            <h:commandButton 
+                                class="btn" 
+                                id="loadsoap" 
+                                value="Load Weather Stations" 
+                                disabled="#{globalWeatherService.loadCityButtonDisabled}"
+                                actionListener="#{globalWeatherService.loadCities()}">
+                                <f:ajax execute="soapform:loadsoap" render="soapform:stations soapform:loadweather"/>
+                            </h:commandButton>
 
-      <right>
-    <ui:include src="weatherservice/weather.xhtml">
-    </ui:include>
-          </right>
+                        </td>
+                        <td>
+                            <h:selectOneMenu 
+                                value="#{globalWeatherService.cityName}" 
+                                id="stations">
+                                <f:selectItems 
+                                    value="#{globalWeatherService.cities}" 
+                                    var="city" 
+                                    itemLabel="#{city.name}"
+                                    itemValue="#{city.name}"
+                                    />
+                            </h:selectOneMenu>
+                        </td>
+                        <td>
+                            <h:commandButton 
+                                class="btn btn-success" 
+                                id="loadweather" 
+                                value="Load Weather"
+                                disabled="#{globalWeatherService.updateWeatherButtonDisabled}"
+                                actionListener="#{globalWeatherService.updateWeather()}">
+                                <f:ajax execute="soapform:loadweather soapform:stations" render="soapform:weatherdata"/>
+                            </h:commandButton>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <h:panelGroup id="weatherdata">
+                                <ui:include src="weatherservice/weather.xhtml"/>
+                            </h:panelGroup>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
+<!--        <h:form id="weather">
+            <tr>
+                <td>
+                    <h:panelGroup id="weatherdata">
+                        <ui:include src="weatherservice/weather.xhtml"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+        </h:form>-->
+        <!--      <right>
+                  <ui:include src="weatherservice/weather.xhtml" id="weatherdata">
+            </ui:include>
+                  </right>-->
 
-  </body>
+    </body>
 </html>

@@ -9,6 +9,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 import esa.titan.soap.weatherservice.generated.GlobalWeatherSoap;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 
 @ManagedBean
 @SessionScoped
-public class GlobalWeatherService {
+public class GlobalWeatherService implements Serializable {
 
     private Weather weather;
     private GlobalWeatherSoap soap;
@@ -43,7 +44,7 @@ public class GlobalWeatherService {
 
     public void updateWeather() {
         try {
-
+            Logger.getLogger(GlobalWeatherService.class.getName()).log(Level.INFO, "updateWeather()");
             weather = null;
 
             String cityName = getCityName();
@@ -95,6 +96,7 @@ public class GlobalWeatherService {
         } catch (Exception e) {
             weather = null;
             Logger.getLogger(GlobalWeatherService.class.getName()).log(Level.SEVERE, "Error in updateWeather(): " + e.getMessage());
+//            e.printStackTrace();
         }
 
     }
