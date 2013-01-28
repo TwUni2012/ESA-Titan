@@ -55,7 +55,7 @@ public class LoadArticles {
                     }
                     try {
                         Element webUrlContentElements = imageDoc.getElementById("article-body-blocks");
-                        String content = webUrlContentElements.text().substring(0, 250);
+                        String content = webUrlContentElements.text().substring(0, 400);
                         int lastBlanc = content.lastIndexOf(" ");
                         webUrlContent = content.substring(0, lastBlanc) + " ...";
                     } catch (Exception eeee) {
