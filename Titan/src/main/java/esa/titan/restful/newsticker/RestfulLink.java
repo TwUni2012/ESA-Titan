@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -15,6 +17,7 @@ import javax.ejb.Stateful;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
 /**
@@ -36,14 +39,42 @@ public class RestfulLink implements Serializable{
     private static int counter = 0;
     private String time = "";
     private String[] countries = {"Hallo", "Welt", "Ich", "Hammer", "Blub"};
-
+    private List<SelectItem> categories = new LinkedList<SelectItem>();
+    private String selected = "world";
     public RestfulLink() {
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### RestfulLink Objekt wurde erstellt");
 //        IncrementCounterThread i = new IncrementCounterThread(this);
+        
+                    
+        categories.add((new SelectItem("world", "world")));
+        categories.add(new SelectItem("sport", "sport"));
 //        i.run();
         loadURK();
     }
 
+    //        categories.add(new SelectItem("sport", "sport"));
+//        categories.add((new SelectItem("world", "world")));
+
+//        IncrementCounterThread i = new IncrementCounterThread(this);
+//        i.run();
+
+    public String getSelected() {
+        return selected;
+    }
+    
+    public void setSelected(String selected) {
+        this.selected = selected;
+    }
+    
+    public List<SelectItem> getCategories() {
+        return categories;
+    }
+    
+    public void setCategories(List<SelectItem> categories) {
+        this.categories = categories;
+    }
+    
+    
     public String getCategory() {
         return category;
     }
@@ -69,7 +100,7 @@ public class RestfulLink implements Serializable{
     }
 
     public String getUrl() {
-        return domain + category + format + parameter;
+        return domain + getSelected() + format + parameter;
     }
 
     public String getTime() {

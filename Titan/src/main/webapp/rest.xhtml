@@ -7,7 +7,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <h:head>
         <h:outputStylesheet library="css" name="bootstrap.css"/>
@@ -21,7 +22,10 @@ and open the template in the editor.
             <table class="table" style="width: 100%">
                 <tr>
                     <td><h:outputLabel value="#{restfulLink.domain}"/></td>
-                    <td><h:inputText value="#{restfulLink.category}" size="12" style="color: red"/></td>
+                    <!--<td><h:inputText value="#{restfulLink.category}" size="12" style="color: red"/></td>-->
+                    <td><h:selectOneMenu value="#{restfulLink.selected}">
+                        <f:selectItems value="#{restfulLink.categories}"/>
+                    </h:selectOneMenu></td>
                     <td><h:outputLabel value="#{restfulLink.format}" /></td>
                     <td><h:inputText value="#{restfulLink.parameter}" size="50"/></td>
                     <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{restfulLink.loadURK()}"/></td>
