@@ -17,19 +17,17 @@ import javax.ejb.Stateless;
  * @author tilo
  */
 public class Loader {
-    
+
     private LoadArticles loadArticles;
 
     public Loader() {
     }
-    
+
     public Loader(String url) {
         loadArticles = new LoadArticles(url);
     }
-    
-        public void loadFirstElement() {
 
-//        loadArticles = new LoadArticles();
+    public void loadFirstElement() {
         Article firstArticle = loadArticles.loadFirstArticle();
         ArticleManager.clear();
         ArticleManager.addArticle(firstArticle);
@@ -43,5 +41,4 @@ public class Loader {
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### nextArticles-size: " + nextArticles.size());
         ArticleManager.addArticle(nextArticles);
     }
-    
 }
