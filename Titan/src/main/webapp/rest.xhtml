@@ -21,23 +21,23 @@ and open the template in the editor.
         <h:form id="restform" class="form-horizontal">
             <table class="table" style="width: 100%">
                 <tr>
-                    <td><h:outputLabel value="#{restfulLink.domain}"/></td>
-                    <td><h:selectOneMenu value="#{restfulLink.selected}">
-                        <f:selectItems value="#{restfulLink.categories}"/>
+                    <td><h:outputLabel value="#{articleManager.domain}"/></td>
+                    <td><h:selectOneMenu value="#{articleManager.selected}">
+                        <f:selectItems value="#{articleManager.categories}"/>
                     </h:selectOneMenu></td>
-                    <td><h:outputLabel value="#{restfulLink.format}" /></td>
-                    <td><h:outputLabel value="#{restfulLink.parameter}" /></td>
-                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{restfulLink.loadURL()}"/></td>
+                    <td><h:outputLabel value="#{articleManager.format}" /></td>
+                    <td><h:outputLabel value="#{articleManager.parameter}" /></td>
+                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{articleManager.loadURL()}"/></td>
                 </tr>
             </table>
         </h:form>
 
-        <h:outputLabel value="Rest-Link: #{restfulLink.url}"/>
+        <h:outputLabel value="Rest-Link: #{articleManager.url}"/>
 
         <a4j:region>
             <h:form>
                 <a4j:poll id="poll" interval="15000" enabled="true" actionListener="#{articleManager.nextArticle()}" render="restoutputform,articleTitle"/>
-                <a4j:poll id="poll2" interval="8000" enabled="true" actionListener="#{restfulLink.loadAllOtherArticleElements()}"/>
+                <a4j:poll id="poll2" interval="8000" enabled="true" actionListener="#{articleManager.loadAllOtherArticleElements()}"/>
             </h:form>
         </a4j:region>
 
