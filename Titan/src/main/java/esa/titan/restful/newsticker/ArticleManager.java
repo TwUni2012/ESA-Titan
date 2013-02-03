@@ -61,7 +61,6 @@ public class ArticleManager implements Serializable {
     }
 
     private Article getCurrentArticle() {
-//        Article article;
         try {
             return articles.get(currentArticleIndex);
         } catch (NullPointerException npe) {
@@ -70,7 +69,6 @@ public class ArticleManager implements Serializable {
             Logger.getLogger(ArticleManager.class.getName()).log(Level.WARNING, "something went wrong in 'getCurrentArticle'");
         }
         return dummy;
-//        return articles.get(currentArticleIndex);
     }
 
     public void nextArticle() {
@@ -78,8 +76,7 @@ public class ArticleManager implements Serializable {
 
         if (articles.size() <= currentArticleIndex) {
             currentArticleIndex = 0;
-        }       
-        
+        }           
         Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "### nextArticle wurde aufgerufen");
         Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "currentArticleIndex" + currentArticleIndex);
     }
@@ -103,7 +100,7 @@ public class ArticleManager implements Serializable {
     
     public static void addArticle(ArrayList<Article> articless) {
         articles.addAll(articless);
-        currentArticleIndex++; // test
+        currentArticleIndex++;
     }
     
     public static void clearWithoutFirstArticleElement() {

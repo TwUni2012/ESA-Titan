@@ -23,7 +23,7 @@ import javax.faces.model.SelectItem;
  */
 @ManagedBean
 @SessionScoped
-public class RestfulLink implements Serializable{
+public class RestfulLink implements Serializable {
 
     private String domain = "http://content.guardianapis.com/";
     private String category = "world";
@@ -37,10 +37,14 @@ public class RestfulLink implements Serializable{
     private LoadArticles loadArticles;
     private Loader l;
     private boolean loaded = false;
-    
+
     public RestfulLink() {
-        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### RestfulLink Objekt wurde erstellt");     
-                    
+        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### RestfulLink Objekt wurde erstellt");
+        initCategories();
+        loadURL();
+    }
+
+    private void initCategories() {
         categories.add((new SelectItem("world", "world")));
         categories.add(new SelectItem("sport", "sport"));
         categories.add(new SelectItem("football", "football"));
@@ -49,27 +53,24 @@ public class RestfulLink implements Serializable{
         categories.add(new SelectItem("travel", "travel"));
         categories.add(new SelectItem("film", "film"));
         categories.add(new SelectItem("politics", "politics"));
-        
-        //loadFirstElement
-        loadURL();
     }
 
     public String getSelected() {
         return selected;
     }
-    
+
     public void setSelected(String selected) {
         this.selected = selected;
     }
-    
+
     public List<SelectItem> getCategories() {
         return categories;
     }
-    
+
     public void setCategories(List<SelectItem> categories) {
         this.categories = categories;
     }
-    
+
     public String getCategory() {
         return category;
     }
@@ -113,49 +114,17 @@ public class RestfulLink implements Serializable{
 
     public void loadURL() {
         String url = getUrl();
-        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "#### loadURK: " + url);
-//        loadArticles = new LoadArticles(url);
-//        ArrayList<Article> articles = loadArticles.parseHTML(url);
-//        ArticleManager.setArticles(articles);
+        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "RestfulLink: 'loadURL()': " + url);
+
         l = new Loader(url);
         l.loadFirstElement();
         loaded = true;
-        
-//        return "Load";
     }
 
     public void loadAllOtherArticleElements() {
-        if((l != null) && (loaded == true)) {
+        if ((l != null) && (loaded == true)) {
             l.loadAllOtherArticleElements();
             loaded = false;
         }
-    }
-    
-    /*
-    private void loadFirstElement() {
-
-//        loadArticles = new LoadArticles();
-        Article firstArticle = loadArticles.loadFirstArticle();
-        ArticleManager.clear();
-        ArticleManager.addArticle(firstArticle);
-    }
-
-    @Asynchronous
-    private void loadAllOtherArticleElements() {
-
-        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### loadAllOtherArticleElements: ");
-                try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(RestfulLink.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### loadAllOtherArticleElements after 10 sec sleep");
-        ArrayList<Article> nextArticles = loadArticles.nextArticles();
-        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### nextArticles-size: " + nextArticles.size());
-        ArticleManager.addArticle(nextArticles);
-    }
- */   
-    public void parse(ActionEvent e) {
-        Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### Link soll geparst werden");
     }
 }

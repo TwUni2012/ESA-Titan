@@ -33,7 +33,6 @@ public class Loader {
         ArticleManager.addArticle(firstArticle);
     }
 
-    @Asynchronous
     public void loadAllOtherArticleElements() {
         ArticleManager.clearWithoutFirstArticleElement();
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### loadAllOtherArticleElements: ");
