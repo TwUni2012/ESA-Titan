@@ -37,6 +37,7 @@ public class Loader {
 
     @Asynchronous
     public void loadAllOtherArticleElements() {
+        ArticleManager.clearWithoutFirstArticleElement();
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### loadAllOtherArticleElements: ");
         ArrayList<Article> nextArticles = loadArticles.nextArticles();
         Logger.getLogger(RestfulLink.class.getName()).log(Level.INFO, "### nextArticles-size: " + nextArticles.size());

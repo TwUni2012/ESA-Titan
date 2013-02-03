@@ -20,133 +20,30 @@ import org.jsoup.select.Elements;
 public class LoadArticles {
 
     private String url;
-    
+
     public LoadArticles(String url) {
         this.url = url;
     }
-    
-    public void load(String url) {
-        parseHTML(url);
-    }
 
-    public ArrayList<Article> parseHTML(String url) {
-        ArrayList<Article> articles = new ArrayList<Article>();
+    public Article loadFirstArticle() {
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "LoadArticles: 'loadFirstArticle()'");
+        Article article = null;
 
         Document doc;
         try {
             doc = Jsoup.connect(url).get();
-
             int i = 0;
             Elements contentElements = doc.getElementsByTag("content");
-            for (Element e : contentElements) {
-
-                String webTitle = e.attr("web-title");
-                String webPublicationDate = e.attr("web-publication-date");
-                String webUrl = e.attr("web-url");
-                String imageUrl = "";
-                String webUrlContent = "";
-
-                try {
-                    Document imageDoc = Jsoup.connect(webUrl).get();
-                    Elements metaElements = imageDoc.getElementsByTag("meta");
-                    for (Element element : metaElements) {
-                        try {
-                            String property = element.attr("property");
-                            if ("og:image".equals(property)) {
-                                imageUrl = element.attr("content");
-                                break;
-                            }
-                        } catch (Exception eee) {
-                        }
-                    }
-                    try {
-                        Element webUrlContentElements = imageDoc.getElementById("article-body-blocks");
-                        String content = webUrlContentElements.text().substring(0, 400);
-                        int lastBlanc = content.lastIndexOf(" ");
-                        webUrlContent = content.substring(0, lastBlanc) + " ...";
-                    } catch (Exception eeee) {
-                    }
-                } catch (Exception ee) {
-                }
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "#######");
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "# webTitle: " + webTitle);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "### webPublicationDate: " + webPublicationDate);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "###### webUrl: " + webUrl);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## imageUrl: " + imageUrl);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## webUrlContent: " + webUrlContent);
-                i++;
-                Article article = new Article(webTitle, webPublicationDate, webUrl, imageUrl, webUrlContent);
-                articles.add(article);
-            }
+            Element e = contentElements.get(i);
+            article = getArticle(e, i);      
         } catch (IOException ex) {
             Logger.getLogger(LoadArticles.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return articles;
-    }
-    
-    
-    public Article loadFirstArticle() {
-        Article article = null;
-        
-        
-        
-        Document doc;
-        try {
-            doc = Jsoup.connect(url).get();
-
-            int i = 1;
-            Elements contentElements = doc.getElementsByTag("content");
-            for (Element e : contentElements) {
-                if(i == 2) {
-                    break;
-                }                 
-                
-                String webTitle = e.attr("web-title");
-                String webPublicationDate = e.attr("web-publication-date");
-                String webUrl = e.attr("web-url");
-                String imageUrl = "";
-                String webUrlContent = "";
-
-                try {
-                    Document imageDoc = Jsoup.connect(webUrl).get();
-                    Elements metaElements = imageDoc.getElementsByTag("meta");
-                    for (Element element : metaElements) {
-                        try {
-                            String property = element.attr("property");
-                            if ("og:image".equals(property)) {
-                                imageUrl = element.attr("content");
-                                break;
-                            }
-                        } catch (Exception eee) {
-                        }
-                    }
-                    try {
-                        Element webUrlContentElements = imageDoc.getElementById("article-body-blocks");
-                        String content = webUrlContentElements.text().substring(0, 400);
-                        int lastBlanc = content.lastIndexOf(" ");
-                        webUrlContent = content.substring(0, lastBlanc) + " ...";
-                    } catch (Exception eeee) {
-                    }
-                } catch (Exception ee) {
-                }
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "#######");
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "# webTitle: " + webTitle);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "### webPublicationDate: " + webPublicationDate);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "###### webUrl: " + webUrl);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## imageUrl: " + imageUrl);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## webUrlContent: " + webUrlContent);
-                i++;
-                article = new Article(webTitle, webPublicationDate, webUrl, imageUrl, webUrlContent);
-                
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(LoadArticles.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         return article;
     }
-    
+
     public ArrayList<Article> nextArticles() {
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "LoadArticles: 'nextArticles()'");
         ArrayList<Article> articles = new ArrayList<Article>();
 
         Document doc;
@@ -156,50 +53,54 @@ public class LoadArticles {
             int i = 0;
             Elements contentElements = doc.getElementsByTag("content");
             for (Element e : contentElements) {
-//                if(i == 0) {
-//                    continue;
-//                }
-                String webTitle = e.attr("web-title");
-                String webPublicationDate = e.attr("web-publication-date");
-                String webUrl = e.attr("web-url");
-                String imageUrl = "";
-                String webUrlContent = "";
-
-                try {
-                    Document imageDoc = Jsoup.connect(webUrl).get();
-                    Elements metaElements = imageDoc.getElementsByTag("meta");
-                    for (Element element : metaElements) {
-                        try {
-                            String property = element.attr("property");
-                            if ("og:image".equals(property)) {
-                                imageUrl = element.attr("content");
-                                break;
-                            }
-                        } catch (Exception eee) {
-                        }
-                    }
-                    try {
-                        Element webUrlContentElements = imageDoc.getElementById("article-body-blocks");
-                        String content = webUrlContentElements.text().substring(0, 400);
-                        int lastBlanc = content.lastIndexOf(" ");
-                        webUrlContent = content.substring(0, lastBlanc) + " ...";
-                    } catch (Exception eeee) {
-                    }
-                } catch (Exception ee) {
-                }
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "#######");
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "# webTitle: " + webTitle);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "### webPublicationDate: " + webPublicationDate);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "###### webUrl: " + webUrl);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## imageUrl: " + imageUrl);
-                Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## webUrlContent: " + webUrlContent);
                 i++;
-                Article article = new Article(webTitle, webPublicationDate, webUrl, imageUrl, webUrlContent);
-                articles.add(article);
+                Article article = getArticle(e, i);
+                if (i != 1) {
+                    articles.add(article);
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(LoadArticles.class.getName()).log(Level.SEVERE, null, ex);
         }
         return articles;
+    }
+
+    private Article getArticle(Element e, int i) {
+        String webTitle = e.attr("web-title");
+        String webPublicationDate = e.attr("web-publication-date");
+        String webUrl = e.attr("web-url");
+        String imageUrl = "";
+        String webUrlContent = "";
+
+        try {
+            Document imageDoc = Jsoup.connect(webUrl).get();
+            Elements metaElements = imageDoc.getElementsByTag("meta");
+            for (Element element : metaElements) {
+                try {
+                    String property = element.attr("property");
+                    if ("og:image".equals(property)) {
+                        imageUrl = element.attr("content");
+                        break;
+                    }
+                } catch (Exception eee) {
+                }
+            }
+            try {
+                Element webUrlContentElements = imageDoc.getElementById("article-body-blocks");
+                String content = webUrlContentElements.text().substring(0, 400);
+                int lastBlanc = content.lastIndexOf(" ");
+                webUrlContent = content.substring(0, lastBlanc) + " ...";
+            } catch (Exception eeee) {
+            }
+        } catch (Exception ee) {
+        }
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "#######");
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "# webTitle: " + webTitle);
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "### webPublicationDate: " + webPublicationDate);
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "###### webUrl: " + webUrl);
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## imageUrl: " + imageUrl);
+        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## webUrlContent: " + webUrlContent);
+
+        return new Article(webTitle, webPublicationDate, webUrl, imageUrl, webUrlContent);
     }
 }

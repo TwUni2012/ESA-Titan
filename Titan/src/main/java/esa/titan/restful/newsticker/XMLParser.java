@@ -31,31 +31,31 @@ public class XMLParser {
     }
 
     public void parse(String url) {
-        Logger.getLogger(XMLParser.class.getName()).log(Level.INFO, url + " wird geparst");
-        URL u;
-        InputStream is = null;
-        DataInputStream dis;
-        String s;
-
-        try {
-            u = new URL(url);
-
-            is = u.openStream();
-            dis = new DataInputStream(new BufferedInputStream(is));
-            while ((s = dis.readLine()) != null) {
-//                Logger.getLogger(XMLParser.class.getName()).log(Level.INFO, s);
-//                System.out.println(s);
-            }
-        } catch (MalformedURLException mue) {
-            Logger.getLogger(XMLParser.class.getName()).log(Level.WARNING, "### MalformedURLException");
-        } catch (IOException ioe) {
-            Logger.getLogger(XMLParser.class.getName()).log(Level.WARNING, "### IOException");
-        } finally {
-            try {
-                is.close();
-            } catch (IOException ioe) {
-                Logger.getLogger(XMLParser.class.getName()).log(Level.WARNING, "### IOException");
-            }
-        }
+//        Logger.getLogger(XMLParser.class.getName()).log(Level.INFO, url + " wird geparst");
+//        URL u;
+//        InputStream is = null;
+//        DataInputStream dis;
+//        String s;
+//
+//        try {
+//            u = new URL(url);
+//
+//            is = u.openStream();
+//            dis = new DataInputStream(new BufferedInputStream(is));
+//            while ((s = dis.readLine()) != null) {
+////                Logger.getLogger(XMLParser.class.getName()).log(Level.INFO, s);
+////                System.out.println(s);
+//            }
+//        } catch (MalformedURLException mue) {
+//            Logger.getLogger(XMLParser.class.getName()).log(Level.WARNING, "### MalformedURLException");
+//        } catch (IOException ioe) {
+//            Logger.getLogger(XMLParser.class.getName()).log(Level.WARNING, "### IOException");
+//        } finally {
+//            try {
+//                is.close();
+//            } catch (IOException ioe) {
+//                Logger.getLogger(XMLParser.class.getName()).log(Level.WARNING, "### IOException");
+//            }
+//        }
     }
 }

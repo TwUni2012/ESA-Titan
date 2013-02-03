@@ -23,11 +23,11 @@ import javax.inject.Named;
 @SessionScoped
 public class ArticleManager implements Serializable {
 
-//    private Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
-//            "2013-01-22T16:01:00Z",
-//            "http://www.guardian.co.uk/uk/2013/jan/22/french-gas-cloud-stink-south-east",
-//            "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/1/22/1358860652111/Lubrizol-factory-in-Rouen-004.jpg",
-//            "As a metaphor made literal it was almost");
+    private Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
+            "2013-01-22T16:01:00Z",
+            "http://www.guardian.co.uk/uk/2013/jan/22/french-gas-cloud-stink-south-east",
+            "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/1/22/1358860652111/Lubrizol-factory-in-Rouen-004.jpg",
+            "As a metaphor made literal it was almost");
     private static ArrayList<Article> articles = new ArrayList<Article>();
     private static int currentArticleIndex = 0;
 
@@ -53,16 +53,24 @@ public class ArticleManager implements Serializable {
 
     public String getArticleContent() {
         String currentArticleContent = getCurrentArticle().content;
-
+        
         if ("".equals(currentArticleContent)) {
             return "article not found";
         }
-
         return currentArticleContent;
     }
 
     private Article getCurrentArticle() {
-        return articles.get(currentArticleIndex);
+//        Article article;
+        try {
+            return articles.get(currentArticleIndex);
+        } catch (NullPointerException npe) {
+             Logger.getLogger(ArticleManager.class.getName()).log(Level.WARNING, "NullPointerException: something went wrong in 'getCurrentArticle'");
+        } catch (Exception e) {
+            Logger.getLogger(ArticleManager.class.getName()).log(Level.WARNING, "something went wrong in 'getCurrentArticle'");
+        }
+        return dummy;
+//        return articles.get(currentArticleIndex);
     }
 
     public void nextArticle() {
@@ -96,5 +104,11 @@ public class ArticleManager implements Serializable {
     public static void addArticle(ArrayList<Article> articless) {
         articles.addAll(articless);
         currentArticleIndex++; // test
+    }
+    
+    public static void clearWithoutFirstArticleElement() {
+        for(int i = 1; i < articles.size(); i++) {
+            articles.remove(i);
+        }
     }
 }
