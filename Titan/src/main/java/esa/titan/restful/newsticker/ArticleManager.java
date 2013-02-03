@@ -68,7 +68,7 @@ public class ArticleManager implements Serializable {
     public void nextArticle() {
         currentArticleIndex++;
 
-        if (articles.size() == currentArticleIndex) {
+        if (articles.size() <= currentArticleIndex) {
             currentArticleIndex = 0;
         }       
         
@@ -95,5 +95,6 @@ public class ArticleManager implements Serializable {
     
     public static void addArticle(ArrayList<Article> articless) {
         articles.addAll(articless);
+        currentArticleIndex++; // test
     }
 }
