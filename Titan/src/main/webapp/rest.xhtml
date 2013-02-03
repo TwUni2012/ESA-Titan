@@ -22,13 +22,12 @@ and open the template in the editor.
             <table class="table" style="width: 100%">
                 <tr>
                     <td><h:outputLabel value="#{restfulLink.domain}"/></td>
-                    <!--<td><h:inputText value="#{restfulLink.category}" size="12" style="color: red"/></td>-->
                     <td><h:selectOneMenu value="#{restfulLink.selected}">
                         <f:selectItems value="#{restfulLink.categories}"/>
                     </h:selectOneMenu></td>
                     <td><h:outputLabel value="#{restfulLink.format}" /></td>
-                    <td><h:inputText value="#{restfulLink.parameter}" size="50"/></td>
-                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{restfulLink.loadURK()}"/></td>
+                    <td><h:outputLabel value="#{restfulLink.parameter}" /></td>
+                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{restfulLink.loadURL()}"/></td>
                 </tr>
             </table>
         </h:form>
@@ -38,6 +37,7 @@ and open the template in the editor.
         <a4j:region>
             <h:form>
                 <a4j:poll id="poll" interval="15000" enabled="true" actionListener="#{articleManager.nextArticle()}" render="restoutputform,articleTitle"/>
+                <a4j:poll id="poll2" interval="8000" enabled="true" actionListener="#{restfulLink.loadAllOtherArticleElements()}"/>
             </h:form>
         </a4j:region>
 
