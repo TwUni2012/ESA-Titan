@@ -17,16 +17,16 @@ import org.jsoup.select.Elements;
  *
  * @author tiloW7-2012
  */
-public class LoadArticles {
+public class TheGuardianArticleLoader {
 
     private String url;
 
-    public LoadArticles(String url) {
+    public TheGuardianArticleLoader(String url) {
         this.url = url;
     }
 
     public Article loadFirstArticle() {
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "LoadArticles: 'loadFirstArticle()'");
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "LoadArticles: 'loadFirstArticle()'");
         Article article = null;
 
         Document doc;
@@ -37,13 +37,13 @@ public class LoadArticles {
             Element e = contentElements.get(i);
             article = getArticle(e, i);      
         } catch (IOException ex) {
-            Logger.getLogger(LoadArticles.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return article;
     }
 
     public ArrayList<Article> nextArticles() {
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "LoadArticles: 'nextArticles()'");
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "LoadArticles: 'nextArticles()'");
         ArrayList<Article> articles = new ArrayList<Article>();
 
         Document doc;
@@ -60,7 +60,7 @@ public class LoadArticles {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(LoadArticles.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return articles;
     }
@@ -94,12 +94,12 @@ public class LoadArticles {
             }
         } catch (Exception ee) {
         }
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, "#######");
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "# webTitle: " + webTitle);
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "### webPublicationDate: " + webPublicationDate);
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "###### webUrl: " + webUrl);
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## imageUrl: " + imageUrl);
-        Logger.getLogger(LoadArticles.class.getName()).log(Level.INFO, i + "######## webUrlContent: " + webUrlContent);
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "#######");
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "{0}# webTitle: {1}", new Object[]{i, webTitle});
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "{0}### webPublicationDate: {1}", new Object[]{i, webPublicationDate});
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "{0}###### webUrl: {1}", new Object[]{i, webUrl});
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "{0}######## imageUrl: {1}", new Object[]{i, imageUrl});
+        Logger.getLogger(TheGuardianArticleLoader.class.getName()).log(Level.INFO, "{0}######## webUrlContent: {1}", new Object[]{i, webUrlContent});
 
         return new Article(webTitle, webPublicationDate, webUrl, imageUrl, webUrlContent);
     }

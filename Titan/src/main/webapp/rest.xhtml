@@ -21,35 +21,35 @@ and open the template in the editor.
         <h:form id="restform" class="form-horizontal">
             <table class="table" style="width: 100%">
                 <tr>
-                    <td><h:outputLabel value="#{articleManager.domain}"/></td>
-                    <td><h:selectOneMenu value="#{articleManager.selected}">
-                        <f:selectItems value="#{articleManager.categories}"/>
+                    <td><h:outputLabel value="#{newsticker.domain}"/></td>
+                    <td><h:selectOneMenu value="#{newsticker.selected}">
+                        <f:selectItems value="#{newsticker.categories}"/>
                     </h:selectOneMenu></td>
-                    <td><h:outputLabel value="#{articleManager.format}" /></td>
-                    <td><h:outputLabel value="#{articleManager.parameter}" /></td>
-                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{articleManager.loadURL()}"/></td>
+                    <td><h:outputLabel value="#{newsticker.format}" /></td>
+                    <td><h:outputLabel value="#{newsticker.parameter}" /></td>
+                    <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{newsticker.loadURL()}"/></td>
                 </tr>
             </table>
         </h:form>
 
-        <h:outputLabel value="Rest-Link: #{articleManager.url}"/>
+        <h:outputLabel value="Rest-Link: #{newsticker.url}"/>
 
         <a4j:region>
             <h:form>
-                <a4j:poll id="poll" interval="15000" enabled="true" actionListener="#{articleManager.nextArticle()}" render="restoutputform,articleTitle"/>
-                <a4j:poll id="poll2" interval="8000" enabled="true" actionListener="#{articleManager.loadAllOtherArticleElements()}"/>
+                <a4j:poll id="poll" interval="15000" enabled="true" actionListener="#{newsticker.nextArticle()}" render="restoutputform,articleTitle"/>
+                <a4j:poll id="poll2" interval="8000" enabled="true" actionListener="#{newsticker.loadAllOtherArticleElements()}"/>
             </h:form>
         </a4j:region>
 
         <h:form id="articleTitle">
-                <h:commandLink value="#{articleManager.articleTitle}" action="#{articleManager.openExternURL()}" style="font-size: 15pt"/>
+                <h:commandLink value="#{newsticker.articleTitle}" action="#{newsticker.openExternURL()}" style="font-size: 15pt"/>
         </h:form>
         <h:form id="restoutputform" class="form-horizontal">
             <table class="table" style="width: 100%" >
                 <tr>
-                    <td><h:graphicImage alt="The image could not be found." value="#{articleManager.articleImageUrl}" width="300" height="200"/></td>
-                    <td><h:outputLabel value="#{articleManager.articleContent}"/></td>
-                    <td><h:outputLabel value="#{articleManager.articlePublicationDate}"/></td>
+                    <td><h:graphicImage alt="The image could not be found." value="#{newsticker.articleImageUrl}" width="300" height="200"/></td>
+                    <td><h:outputLabel value="#{newsticker.articleContent}"/></td>
+                    <td><h:outputLabel value="#{newsticker.articlePublicationDate}"/></td>
                 </tr>
             </table>
         </h:form>

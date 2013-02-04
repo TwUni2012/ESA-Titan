@@ -22,7 +22,7 @@ import javax.faces.model.SelectItem;
  */
 @ManagedBean
 @SessionScoped
-public class ArticleManager implements Serializable {
+public class Newsticker implements Serializable {
 
     private Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
             "2013-01-22T16:01:00Z",
@@ -35,16 +35,13 @@ public class ArticleManager implements Serializable {
     private String category = "world";
     private String format = "?format=xml";
     private String parameter = "&order-by=newest&date-id=date%2Flast24hours";
-    private int counter = 0;
-    private String time = "";
-    private String[] countries = {"Hallo", "Welt", "Ich", "Hammer", "Blub"};
     private List<SelectItem> categories = new LinkedList<SelectItem>();
     private String selected = "world";
-    private LoadArticles loadArticles;
+    private TheGuardianArticleLoader theGuardianArticleLoader;
     private boolean loaded = false;
 
-    public ArticleManager() {
-        Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "### ArticleManager Objekt wurde erstellt");
+    public Newsticker() {
+        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "### ArticleManager Objekt wurde erstellt");
         initCategories();
         loadURL();
     }
@@ -78,9 +75,9 @@ public class ArticleManager implements Serializable {
         try {
             return articles.get(currentArticleIndex);
         } catch (NullPointerException npe) {
-            Logger.getLogger(ArticleManager.class.getName()).log(Level.WARNING, "NullPointerException: something went wrong in 'getCurrentArticle'");
+            Logger.getLogger(Newsticker.class.getName()).log(Level.WARNING, "NullPointerException: something went wrong in 'getCurrentArticle'");
         } catch (Exception e) {
-            Logger.getLogger(ArticleManager.class.getName()).log(Level.WARNING, "something went wrong in 'getCurrentArticle'");
+            Logger.getLogger(Newsticker.class.getName()).log(Level.WARNING, "something went wrong in 'getCurrentArticle'");
         }
         return dummy;
     }
@@ -91,8 +88,8 @@ public class ArticleManager implements Serializable {
         if (articles.size() <= currentArticleIndex) {
             currentArticleIndex = 0;
         }
-        Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "### nextArticle wurde aufgerufen");
-        Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "currentArticleIndex" + currentArticleIndex);
+        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "### nextArticle wurde aufgerufen");
+        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "currentArticleIndex{0}", currentArticleIndex);
     }
 
     public void setArticles(ArrayList<Article> articles) {
@@ -114,7 +111,6 @@ public class ArticleManager implements Serializable {
 
     public void addArticle(ArrayList<Article> articless) {
         articles.addAll(articless);
-//        currentArticleIndex++;
     }
 
     public void clearWithoutFirstArticleElement() {
@@ -178,22 +174,9 @@ public class ArticleManager implements Serializable {
         return domain + getSelected() + format + parameter;
     }
 
-    public String getTime() {
-        if (countries.length == counter) {
-            counter = 0;
-        }
-        String result = countries[counter];
-        counter++;
-        return result;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public void loadURL() {
         String url = getUrl();
-        Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "RestfulLink: loadURL(): " + url);
+        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "RestfulLink: loadURL(): {0}", url);
 
         loadFirstElement();
         loaded = true;
@@ -202,22 +185,22 @@ public class ArticleManager implements Serializable {
     public void loadAllOtherArticleElements() {
         if (loaded == true) {
             loaded = false;
-            loadAllOtherArticleElements2();
+            loadAllOtherArticles();
         }
     }
 
     private void loadFirstElement() {
-        loadArticles = new LoadArticles(getUrl());
-        Article firstArticle = loadArticles.loadFirstArticle();
-        this.clear();
-        this.addArticle(firstArticle);
+        theGuardianArticleLoader = new TheGuardianArticleLoader(getUrl());
+        Article firstArticle = theGuardianArticleLoader.loadFirstArticle();
+        clear();
+        addArticle(firstArticle);
     }
 
-    private void loadAllOtherArticleElements2() {
-        this.clearWithoutFirstArticleElement();
-        Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "### loadAllOtherArticleElements: ");
-        ArrayList<Article> nextArticles = loadArticles.nextArticles();
-        Logger.getLogger(ArticleManager.class.getName()).log(Level.INFO, "### nextArticles-size: " + nextArticles.size());
-        this.addArticle(nextArticles);
+    private void loadAllOtherArticles() {
+        clearWithoutFirstArticleElement();
+        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "### loadAllOtherArticleElements: ");
+        ArrayList<Article> nextArticles = theGuardianArticleLoader.nextArticles();
+        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "### nextArticles-size: {0}", nextArticles.size());
+        addArticle(nextArticles);
     }
 }
