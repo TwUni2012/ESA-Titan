@@ -57,6 +57,9 @@ public class Article {
     }
 
     public String getContent() {
+        if ("".equals(content)) {
+            return "article not found";
+        }
         return content;
     }
 

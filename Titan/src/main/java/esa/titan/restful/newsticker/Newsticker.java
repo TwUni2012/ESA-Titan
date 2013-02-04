@@ -57,32 +57,7 @@ public class Newsticker implements Serializable {
         categories.add(new SelectItem("politics", "politics"));
     }
 
-    public String getArticleTitle() {
-        return getCurrentArticle().title;
-    }
-
-    public String getArticlePublicationDate() {
-        return getCurrentArticle().publicationDate;
-    }
-
-    public String getArticleUrl() {
-        return getCurrentArticle().url;
-    }
-
-    public String getArticleImageUrl() {
-        return getCurrentArticle().imageUrl;
-    }
-
-    public String getArticleContent() {
-        String currentArticleContent = getCurrentArticle().content;
-
-        if ("".equals(currentArticleContent)) {
-            return "article not found";
-        }
-        return currentArticleContent;
-    }
-
-    private Article getCurrentArticle() {
+    public Article getCurrentArticle() {
         try {
             return articles.get(currentArticleIndex);
         } catch (NullPointerException npe) {
@@ -113,26 +88,7 @@ public class Newsticker implements Serializable {
     }
 
     public void openExternURL() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect(getArticleUrl());
-    }
-
-    public void clear() {
-        articles.clear();
-        currentArticleIndex = 0;
-    }
-
-    public void addArticle(Article article) {
-        articles.add(article);
-    }
-
-    public void addArticle(ArrayList<Article> articless) {
-        articles.addAll(articless);
-    }
-
-    public void clearWithoutFirstArticleElement() {
-        for (int i = 1; i < articles.size(); i++) {
-            articles.remove(i);
-        }
+        FacesContext.getCurrentInstance().getExternalContext().redirect(getCurrentArticle().url);
     }
 
     public String getSelected() {
@@ -179,5 +135,24 @@ public class Newsticker implements Serializable {
         ArrayList<Article> nextArticles = theGuardianArticleLoader.nextArticles();
         Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "### nextArticles-size: {0}", nextArticles.size());
         addArticle(nextArticles);
+    }
+
+    public void clear() {
+        articles.clear();
+        currentArticleIndex = 0;
+    }
+
+    public void clearWithoutFirstArticleElement() {
+        for (int i = 1; i < articles.size(); i++) {
+            articles.remove(i);
+        }
+    }
+
+    public void addArticle(Article article) {
+        articles.add(article);
+    }
+
+    public void addArticle(ArrayList<Article> articless) {
+        articles.addAll(articless);
     }
 }

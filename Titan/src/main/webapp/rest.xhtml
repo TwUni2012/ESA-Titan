@@ -42,14 +42,14 @@ and open the template in the editor.
         </a4j:region>
 
         <h:form id="articleTitle">
-                <h:commandLink value="#{newsticker.articleTitle}" action="#{newsticker.openExternURL()}" style="font-size: 15pt"/>
+            <h:commandLink value="#{newsticker.currentArticle.title}" action="#{newsticker.openExternURL()}" style="font-size: 15pt"/>
         </h:form>
         <h:form id="restoutputform" class="form-horizontal">
             <table class="table" style="width: 100%" >
                 <tr>
-                    <td><h:graphicImage alt="The image could not be found." value="#{newsticker.articleImageUrl}" width="300" height="200"/></td>
-                    <td><h:outputLabel value="#{newsticker.articleContent}"/></td>
-                    <td><h:outputLabel value="#{newsticker.articlePublicationDate}"/></td>
+                    <td><h:graphicImage alt="The image could not be found." value="#{newsticker.currentArticle.imageUrl}" width="300" height="200"/></td>
+                    <td><h:outputLabel value="#{newsticker.currentArticle.content}"/></td>
+                    <td><h:outputLabel value="#{newsticker.currentArticle.publicationDate}"/></td>
                 </tr>
             </table>
         </h:form>
