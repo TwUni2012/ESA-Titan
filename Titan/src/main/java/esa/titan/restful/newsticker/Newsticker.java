@@ -24,26 +24,37 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class Newsticker implements Serializable {
 
-    private Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
-            "2013-01-22T16:01:00Z",
-            "http://www.guardian.co.uk/uk/2013/jan/22/french-gas-cloud-stink-south-east",
-            "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/1/22/1358860652111/Lubrizol-factory-in-Rouen-004.jpg",
-            "As a metaphor made literal it was almost");
     private ArrayList<Article> articles = new ArrayList<Article>();
     private int currentArticleIndex = 0;
-    private String domain = "http://content.guardianapis.com/";
-    private String category = "world";
-    private String format = "?format=xml";
-    private String parameter = "&order-by=newest&date-id=date%2Flast24hours";
     private List<SelectItem> categories = new LinkedList<SelectItem>();
     private String selected = "world";
     private TheGuardianArticleLoader theGuardianArticleLoader;
+    private TheGuardianLink theGuardianLink = new TheGuardianLink();
     private boolean loaded = false;
 
     public Newsticker() {
         Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "### ArticleManager Objekt wurde erstellt");
         initCategories();
         loadURL();
+    }
+
+    public void loadURL() {
+        String url = getUrl();
+        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "RestfulLink: loadURL(): {0}", url);
+
+        loadFirstElement();
+        loaded = true;
+    }
+
+    private void initCategories() {
+        categories.add((new SelectItem("world", "world")));
+        categories.add(new SelectItem("sport", "sport"));
+        categories.add(new SelectItem("football", "football"));
+        categories.add(new SelectItem("stage", "stage"));
+        categories.add(new SelectItem("music", "music"));
+        categories.add(new SelectItem("travel", "travel"));
+        categories.add(new SelectItem("film", "film"));
+        categories.add(new SelectItem("politics", "politics"));
     }
 
     public String getArticleTitle() {
@@ -79,6 +90,11 @@ public class Newsticker implements Serializable {
         } catch (Exception e) {
             Logger.getLogger(Newsticker.class.getName()).log(Level.WARNING, "something went wrong in 'getCurrentArticle'");
         }
+        Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
+                "2013-01-22T16:01:00Z",
+                "http://www.guardian.co.uk/uk/2013/jan/22/french-gas-cloud-stink-south-east",
+                "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/1/22/1358860652111/Lubrizol-factory-in-Rouen-004.jpg",
+                "As a metaphor made literal it was almost");
         return dummy;
     }
 
@@ -119,17 +135,6 @@ public class Newsticker implements Serializable {
         }
     }
 
-    private void initCategories() {
-        categories.add((new SelectItem("world", "world")));
-        categories.add(new SelectItem("sport", "sport"));
-        categories.add(new SelectItem("football", "football"));
-        categories.add(new SelectItem("stage", "stage"));
-        categories.add(new SelectItem("music", "music"));
-        categories.add(new SelectItem("travel", "travel"));
-        categories.add(new SelectItem("film", "film"));
-        categories.add(new SelectItem("politics", "politics"));
-    }
-
     public String getSelected() {
         return selected;
     }
@@ -146,40 +151,12 @@ public class Newsticker implements Serializable {
         this.categories = categories;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getParameter() {
-        return parameter;
-    }
-
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
-    }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public String getFormat() {
-        return format;
+    public TheGuardianLink getTheGuardianLink() {
+        return theGuardianLink;
     }
 
     public String getUrl() {
-        return domain + getSelected() + format + parameter;
-    }
-
-    public void loadURL() {
-        String url = getUrl();
-        Logger.getLogger(Newsticker.class.getName()).log(Level.INFO, "RestfulLink: loadURL(): {0}", url);
-
-        loadFirstElement();
-        loaded = true;
+        return theGuardianLink.getDomain() + getSelected() + theGuardianLink.getFormat() + theGuardianLink.getParameter();
     }
 
     public void loadAllOtherArticleElements() {

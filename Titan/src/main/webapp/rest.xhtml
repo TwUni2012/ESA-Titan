@@ -21,12 +21,12 @@ and open the template in the editor.
         <h:form id="restform" class="form-horizontal">
             <table class="table" style="width: 100%">
                 <tr>
-                    <td><h:outputLabel value="#{newsticker.domain}"/></td>
+                    <td><h:outputLabel value="#{newsticker.theGuardianLink.domain}"/></td>
                     <td><h:selectOneMenu value="#{newsticker.selected}">
                         <f:selectItems value="#{newsticker.categories}"/>
                     </h:selectOneMenu></td>
-                    <td><h:outputLabel value="#{newsticker.format}" /></td>
-                    <td><h:outputLabel value="#{newsticker.parameter}" /></td>
+                    <td><h:outputLabel value="#{newsticker.theGuardianLink.format}" /></td>
+                    <td><h:outputLabel value="#{newsticker.theGuardianLink.parameter}" /></td>
                     <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{newsticker.loadURL()}"/></td>
                 </tr>
             </table>
