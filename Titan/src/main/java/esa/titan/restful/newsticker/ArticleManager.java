@@ -40,8 +40,8 @@ public class ArticleManager {
         articles.add(article);
     }
 
-    public void addArticle(ArrayList<Article> articless) {
-        articles.addAll(articless);
+    public void addArticle(ArrayList<Article> articles) {
+        articles.addAll(articles);
     }
 
     public void loadFirstElement(String url) {
@@ -86,11 +86,12 @@ public class ArticleManager {
         } catch (Exception e) {
             Logger.getLogger(Newsticker.class.getName()).log(Level.WARNING, "something went wrong in 'getCurrentArticle'");
         }
-        Article dummy = new Article("Le Pong sours cross-Channel relations before Cameron EU speech",
-                "2013-01-22T16:01:00Z",
-                "http://www.guardian.co.uk/uk/2013/jan/22/french-gas-cloud-stink-south-east",
-                "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/1/22/1358860652111/Lubrizol-factory-in-Rouen-004.jpg",
-                "As a metaphor made literal it was almost");
+
+        Article dummy = new Article("article not found",
+                "article not found",
+                "article not found",
+                "article not found",
+                "article not found");
         return dummy;
     }
 }
