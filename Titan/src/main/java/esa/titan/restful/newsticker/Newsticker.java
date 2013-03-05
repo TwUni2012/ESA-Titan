@@ -49,7 +49,7 @@ public class Newsticker implements Serializable {
         categories.add(new SelectItem("football", "football"));
         categories.add(new SelectItem("stage", "stage"));
         categories.add(new SelectItem("music", "music"));
-        categories.add(new SelectItem("travel", "travel"));
+//        categories.add(new SelectItem("travel", "travel")); // no xml found
         categories.add(new SelectItem("film", "film"));
         categories.add(new SelectItem("politics", "politics"));
     }
@@ -85,10 +85,4 @@ public class Newsticker implements Serializable {
     public String getUrl() {
         return theGuardianLink.getDomain() + getSelected() + theGuardianLink.getFormat() + theGuardianLink.getParameter();
     }
-
-
-
-
-
-
 }
