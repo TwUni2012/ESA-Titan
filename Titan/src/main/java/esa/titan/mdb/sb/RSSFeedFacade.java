@@ -15,16 +15,17 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RSSFeedFacade extends AbstractFacade<RSSFeed> {
-  @PersistenceContext(unitName = "esa_Titan_war_1.0-SNAPSHOTPU")
-  private EntityManager em;
+//  @PersistenceContext(unitName = "esa_Titan_war_1.0-SNAPSHOTPU")
 
-  @Override
-  protected EntityManager getEntityManager() {
-    return em;
-  }
+    @PersistenceContext(unitName = "PersitenceUnitTitan")
+    private EntityManager em;
 
-  public RSSFeedFacade() {
-    super(RSSFeed.class);
-  }
-  
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public RSSFeedFacade() {
+        super(RSSFeed.class);
+    }
 }

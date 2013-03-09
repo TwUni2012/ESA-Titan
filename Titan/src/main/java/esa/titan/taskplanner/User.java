@@ -4,8 +4,10 @@
  */
 package esa.titan.taskplanner;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
@@ -17,6 +19,11 @@ import javax.inject.Named;
 @ManagedBean
 //@RequestScoped
 public class User {
+    private static final Logger LOGGER =  Logger.getLogger(User.class.getName());
+    
+    @EJB
+    private PersonService personService;
+    
     private String name = "";
     private String password = "";
     
@@ -41,10 +48,24 @@ public class User {
     }
     
     public String login() {
-        Logger.getLogger(User.class.getName()).log(Level.INFO, "Name: " + this.name);
-        Logger.getLogger(User.class.getName()).log(Level.INFO, "Password: " + this.password);
+        Person person = new Person(name, password);
+        boolean login = false;
+        List<Person> personlist = personService.getPersons();
+        for(Person p : personlist) {
+            if((person.getName().equals(p.getName())) && (person.getPassword().equals(p.getPassword()))) {
+                login = true;
+            }
+        }
+        
+        LOGGER.log(Level.INFO, "Login: " + login);
+//        if(personService.personNameExists(new Person(this.name, this.password)))  {
+//            
+//        }
+        personService.create(person);
+        LOGGER.log(Level.INFO, "Name: " + this.name);
+        LOGGER.log(Level.INFO, "Password: " + this.password);
         // database access to validate the users
-        if(name.equalsIgnoreCase("tester") && password.equalsIgnoreCase("tester")) {
+        if(login) {
             return "taskplannerLogin";
         } else {
             return "";
