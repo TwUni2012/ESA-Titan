@@ -7,6 +7,9 @@ package esa.titan.taskplanner;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.Stateful;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
@@ -15,8 +18,9 @@ import javax.faces.event.ValueChangeEvent;
 /*
  * Code from http://www.mastertheboss.com/richfaces/richfaces-calendar-example
  */
-@ManagedBean
+@Stateful
 @SessionScoped
+//@ManagedBean
 public class CalendarBean {
 
     private static final String[] WEEK_DAY_LABELS = new String[]{"Sun *",
@@ -59,7 +63,7 @@ public class CalendarBean {
     }
 
     public CalendarBean() {
-
+        Logger.getLogger(CalendarBean.class.getName()).log(Level.INFO, "new CalendarBean");
         locale = Locale.US;
         popup = false; // standard=true
         pattern = "MMM d, yyyy";
@@ -121,12 +125,13 @@ public class CalendarBean {
     }
 
     public String getCurrentDateAsText() {
+         Logger.getLogger(CalendarBean.class.getName()).log(Level.INFO, "getCurrentDateAsText()");
         Date currentDate = getCurrentDate();
         if (currentDate != null) {
             return DateFormat.getDateInstance(DateFormat.FULL).format(
                     currentDate);
         }
-
+        
         return null;
     }
 

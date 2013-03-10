@@ -20,9 +20,18 @@ import javax.inject.Named;
 //@RequestScoped
 public class User {
     private static final Logger LOGGER =  Logger.getLogger(User.class.getName());
+    private Person currentPerson;
     
     @EJB
     private PersonService personService;
+    
+    @EJB
+    private CalendarBean calendarBean;
+    
+    
+    public CalendarBean getCalendar() {
+        return calendarBean;
+    }
     
     private String name = "";
     private String password = "";
@@ -54,21 +63,27 @@ public class User {
         for(Person p : personlist) {
             if((person.getName().equals(p.getName())) && (person.getPassword().equals(p.getPassword()))) {
                 login = true;
+                currentPerson = p;
             }
         }
         
         LOGGER.log(Level.INFO, "Login: " + login);
-//        if(personService.personNameExists(new Person(this.name, this.password)))  {
-//            
-//        }
-        personService.create(person);
+        
         LOGGER.log(Level.INFO, "Name: " + this.name);
         LOGGER.log(Level.INFO, "Password: " + this.password);
         // database access to validate the users
         if(login) {
             return "taskplannerLogin";
         } else {
+            personService.create(person);
             return "";
         }
+    }
+    
+    public Person getCurrentPerson() {
+        if(currentPerson != null) {
+            return currentPerson;
+        }
+        return new Person("", "");
     }
 }
