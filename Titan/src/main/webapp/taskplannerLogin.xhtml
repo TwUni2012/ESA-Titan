@@ -31,12 +31,14 @@
             
             Task: <h:inputText value="#{user.tasktext}"/>
             <h:commandButton value="save task" actionListener="#{user.saveTask}"/>
+            <h:commandButton value="load tasks" actionListener="#{user.allPersonTasks}"/>
         </h:form>
         Your tasks: ...
         Username: "<h:outputLabel value="#{user.currentPerson.name}"/>"
         Password: "<h:outputLabel value="#{user.currentPerson.password}"/>"
         Id: "<h:outputLabel value="#{user.currentPerson.id}"/>"
         <!--<rich:dataScroller></rich:dataScroller>-->
+        
         
     </h:body>
 </html>

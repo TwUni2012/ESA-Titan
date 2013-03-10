@@ -24,22 +24,29 @@ public class Task implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name="taskdate")
-    private Date date;
+//    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Column(name="taskdate")
+//    private Date date;
 
     private String text;
     private Long personid;
+    private String task_time;
+    private int task_day;
+    private int task_month;
+    private int task_year;
 //    @ManyToOne
 //    private Person person;
     
     public Task() {
     }
 
-    public Task(String text, Date date, Long personid) {
+    public Task(String text, Long personid, String time, int day, int month, int year) {
         this.text = text;
-        this.date = date;
         this.personid = personid;
+        this.task_time = time;
+        this.task_day = day;
+        this.task_month = month;
+        this.task_year = year;
     }
 
     public Long getPersonid() {
@@ -57,15 +64,47 @@ public class Task implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+//
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
 
-    public Date getDate() {
-        return date;
+    public String getTime() {
+        return task_time;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.task_time = time;
     }
 
+    public int getDay() {
+        return task_day;
+    }
+
+    public void setDay(int day) {
+        this.task_day = day;
+    }
+
+    public int getMonth() {
+        return task_month;
+    }
+
+    public void setMonth(int month) {
+        this.task_month = month;
+    }
+
+    public int getYear() {
+        return task_year;
+    }
+
+    public void setYear(int year) {
+        this.task_year = year;
+    }
+    
     public Long getId() {
         return id;
     }

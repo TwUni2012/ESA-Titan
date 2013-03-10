@@ -33,8 +33,8 @@ public class TaskService extends AbstractFacade<Task> {
         Logger.getLogger(TaskService.class.getName()).log(Level.INFO, "new TaskService Objekt erstellt");
     }
 
-    public List<Person> getPersons() {
-        TypedQuery<Person> query = em.createQuery("select c from Task c", Person.class);
+    public List<Task> getTasks() {
+        TypedQuery<Task> query = em.createQuery("select c from Task c", Task.class);
         return query.getResultList();
     }
 }
