@@ -28,7 +28,9 @@
             Selected year: <h:outputLabel id="currentdate2" value="#{user.calendar.selectedDate.year}"/><br/>
             Selected day: <h:outputLabel id="currentdate3" value="#{user.calendar.selectedDate.day}"/><br/>
             Selected month: <h:outputLabel id="currentdate4" value="#{user.calendar.selectedDate.month}"/><br/>
-
+            
+            Task: <h:inputText value="#{user.tasktext}"/>
+            <h:commandButton value="save task" actionListener="#{user.saveTask}"/>
         </h:form>
         Your tasks: ...
         Username: "<h:outputLabel value="#{user.currentPerson.name}"/>"

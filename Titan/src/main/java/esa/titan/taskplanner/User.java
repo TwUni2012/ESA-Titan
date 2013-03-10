@@ -11,12 +11,14 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
-
+import java.util.Date;
+import javax.faces.bean.SessionScoped;
 /**
  *
  * @author tiloW7-2012
  */
 @ManagedBean
+@SessionScoped
 //@RequestScoped
 public class User {
     private static final Logger LOGGER =  Logger.getLogger(User.class.getName());
@@ -28,6 +30,8 @@ public class User {
     @EJB
     private CalendarBean calendarBean;
     
+    @EJB
+    private TaskService taskService;
     
     public CalendarBean getCalendar() {
         return calendarBean;
@@ -35,9 +39,18 @@ public class User {
     
     private String name = "";
     private String password = "";
+    private String tasktext = "";
     
     public User() {
         Logger.getLogger(User.class.getName()).log(Level.INFO, "new User");
+    }
+
+    public String getTasktext() {
+        return tasktext;
+    }
+
+    public void setTasktext(String tasktext) {
+        this.tasktext = tasktext;
     }
 
     public String getName() {
@@ -85,5 +98,16 @@ public class User {
             return currentPerson;
         }
         return new Person("", "");
+    }
+    
+    public void saveTask() {
+        Date date = calendarBean.getCurrentDate();
+        LOGGER.log(Level.INFO, "currentPerson=null?: " + (currentPerson != null));
+//        currentPerson.addTask(new Task(tasktext, date));
+//        taskService.create(task);
+//        currentPerson.getTasks().add(new Task(tasktext, date));
+//        personService.edit(currentPerson);
+        Long personid = currentPerson.getId();
+        taskService.create(new Task(tasktext, date, personid));
     }
 }

@@ -5,59 +5,65 @@
 package esa.titan.taskplanner;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 /**
  *
  * @author tiloW7-2012
  */
 @Entity
-public class Person implements Serializable {
+public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
-    private String password;
-
-//    @OneToMany(mappedBy="person")
-//    private Set<Task> tasks;
     
-    public Person() {
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name="taskdate")
+    private Date date;
+
+    private String text;
+    private Long personid;
+//    @ManyToOne
+//    private Person person;
+    
+    public Task() {
     }
 
-    public Person(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public Task(String text, Date date, Long personid) {
+        this.text = text;
+        this.date = date;
+        this.personid = personid;
     }
 
-//    public Set<Task> getTasks() {
-//        return tasks;
-//    }
-//
-//    public void setTasks(Set<Task> tasks) {
-//        this.tasks = tasks;
-//    }
- 
-    public String getName() {
-        return name;
+    public Long getPersonid() {
+        return personid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPersonid(Long personid) {
+        this.personid = personid;
+    }
+    
+    public String getText() {
+        return text;
     }
 
-    public String getPassword() {
-        return password;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Long getId() {
@@ -67,7 +73,7 @@ public class Person implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -78,10 +84,10 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Person)) {
+        if (!(object instanceof Task)) {
             return false;
         }
-        Person other = (Person) object;
+        Task other = (Task) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -90,7 +96,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "esa.titan.taskplanner.Person[ id=" + id + " ]";
+        return "esa.titan.taskplanner.Task[ id=" + id + " ]";
     }
     
 }
