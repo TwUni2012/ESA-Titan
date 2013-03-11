@@ -13,7 +13,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
 import java.util.Date;
+import java.util.Map;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -37,8 +41,8 @@ public class User {
     public CalendarBean getCalendar() {
         return calendarBean;
     }
-    private String name = "";
-    private String password = "";
+    private String name = "a"; //rückgängig machen!
+    private String password = "a"; //rückgängig machen!
     private String tasktext = "";
     private String time = "00:00";
 
@@ -68,6 +72,38 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Task> getPersonTasks() {
+        return personTasks;
+    }
+
+    public List<Task> getPersonTasksForSelectedDate() {
+
+        try {
+            LOGGER.log(Level.INFO, "getPersonTasksForSelectedDate " + personTasks.size());
+        } catch (Exception e) {
+        }
+
+        List<Task> dateTasks=new ArrayList<Task>();
+
+        try {
+            dateTasks = taskService.getPersonTasksForSelectedDate(
+                currentPerson.getId(),
+                getCalendar().getSelectedDate().getYear(),
+                getCalendar().getSelectedDate().getMonth(),
+                getCalendar().getSelectedDate().getDate()
+                );
+        } catch (Exception e) {
+        }
+
+        for (Task t : personTasks) {
+            try {
+                LOGGER.log(Level.INFO, "\t-> " + t.getText());
+            } catch (Exception e) {
+            }
+        }
+        return dateTasks;
     }
 
     public String login() {
@@ -104,24 +140,23 @@ public class User {
     public void saveTask() {
         Date date = calendarBean.getSelectedDate();
         if (date != null) {
-            LOGGER.log(Level.INFO, "currentPerson=null?: " + (currentPerson != null));
             int day = date.getDate();
             int month = date.getMonth();
             int year = date.getYear();
             Long personid = currentPerson.getId();
             Task task = new Task(tasktext, personid, time, day, month, year);
+            LOGGER.log(Level.INFO, "New Task: " + task);
             taskService.create(task);
         }
+
+        tasktext = "";
+
     }
 
-      public void getAllPersonTasks() {
-        Long id = currentPerson.getId();
-        List<Task> allTasks = taskService.getTasks();
-        for (Task t : allTasks) {
-            if (t.getPersonid() == id) {
-                personTasks.add(t);
-                LOGGER.log(Level.INFO, "tasks: " + t.getText());
-            }
-        }
+    public void deleteTask(Integer taskId) {
+        LOGGER.log(Level.INFO, "Delete Task " + taskId.intValue());
+
+        taskService.delete(taskId.intValue());
     }
+
 }

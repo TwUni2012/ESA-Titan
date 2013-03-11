@@ -3,43 +3,70 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Task Planner</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
+        <h:outputScript library="js" name="jfeed.js"/>
+        <style type="text/css">
+            .column1 { width: 99%; text-align: left }
+        </style>
     </h:head>
     <h:body>
-        Taskplanner Page
-        Hello Tester
-        <!-- groesse noch anpassen, mit style scheint das net zu funktionieren-->
-        <h:form id="calendarform">
-            <rich:calendar id="calendar"
-                value="#{user.calendar.selectedDate}"
-                           locale="#{user.calendar.locale}"
-                           popup="#{user.calendar.popup}"
-                           datePattern="#{user.calendar.pattern}"
-                           style="width: 1000px; height: 1000px">
-                <f:ajax event="change" execute="calendarform:calendar" render="calendarform:currentdate calendarform:currentdate2 calendarform:currentdate3 calendarform:currentdate4"/>
-            </rich:calendar>
-<!--            <h:commandButton id="bt_loadtasks" value="load tasks">
-                <f:ajax execute="calendarform:bt_loadtasks" render="calendarform:currentdate calendarform:currentdate2 calendarform:currentdate3 calendarform:currentdate4 calendarform:currentdate5" />
-            </h:commandButton>-->
-            <br/>
-            Selected date: <h:outputLabel id="currentdate" value="#{user.calendar.selectedDate.date}"/><br/>
-            Selected year: <h:outputLabel id="currentdate2" value="#{user.calendar.selectedDate.year}"/><br/>
-            Selected day: <h:outputLabel id="currentdate3" value="#{user.calendar.selectedDate.day}"/><br/>
-            Selected month: <h:outputLabel id="currentdate4" value="#{user.calendar.selectedDate.month}"/><br/>
-            
-            Task: <h:inputText value="#{user.tasktext}"/>
-            <h:commandButton value="save task" actionListener="#{user.saveTask}"/>
-            <h:commandButton value="load tasks" actionListener="#{user.allPersonTasks}"/>
-        </h:form>
-        Your tasks: ...
-        Username: "<h:outputLabel value="#{user.currentPerson.name}"/>"
-        Password: "<h:outputLabel value="#{user.currentPerson.password}"/>"
-        Id: "<h:outputLabel value="#{user.currentPerson.id}"/>"
-        <!--<rich:dataScroller></rich:dataScroller>-->
-        
-        
+        <center>
+            <a href="http://localhost:8080/Titan">
+            <h3>Task Planner</h3>
+            </a>
+            Logged in as: #{user.name}
+            <br/><br/>
+            <!-- groesse noch anpassen, mit style scheint das net zu funktionieren-->
+            <h:form id="calendarform">
+                <table width="70%" border="1">
+                    <tr>
+                        <td width="300" valign="middle" align="center">
+                            <h5>Select Date:</h5>
+                            <rich:calendar id="calendar"
+                                           value="#{user.calendar.selectedDate}"
+                                           locale="#{user.calendar.locale}"
+                                           popup="#{user.calendar.popup}"
+                                           datePattern="#{user.calendar.pattern}"
+                                           >
+                                <!--                <f:ajax event="change" execute="calendarform:calendar" render="calendarform:currentdate calendarform:currentdate2 calendarform:currentdate3 calendarform:currentdate4"/>-->
+                                <f:ajax event="change" execute="calendarform:calendar" render="calendarform:selecteddate calendarform:tasklist"/>
+                            </rich:calendar>
+                        </td>
+                        <td rowspan="2" valign="top" align="center">
+                            <h4>Tasks for <h:outputText id="selecteddate" value="#{user.calendar.selectedDateAsText}"></h:outputText></h4>
+                            <br/>
+                            <h:dataTable columnClasses="column1,column2" style="width: 100%" id="tasklist" value="#{user.personTasksForSelectedDate}" var="task">
+                                <h:column>
+                                    <h:outputText value="#{task.text}" escape="false"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton class="btn-danger" value="Delete Task">
+                                        <f:ajax listener="#{user.deleteTask(task.hashCode())}" event="click" render="tasklist"/>
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="center">
+                            <h5>New Task:</h5>
+                            <h:inputTextarea id="newtasktext" style="width: 300px;height: 200px" value="#{user.tasktext}">
+                            </h:inputTextarea>
+                            <br/>
+                            <h:commandButton class="btn" value="Save Task" actionListener="#{user.saveTask}">
+                            </h:commandButton>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </center>    
     </h:body>
 </html>
 

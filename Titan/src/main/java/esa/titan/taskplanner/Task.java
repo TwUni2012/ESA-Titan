@@ -41,12 +41,13 @@ public class Task implements Serializable {
     }
 
     public Task(String text, Long personid, String time, int day, int month, int year) {
-        this.text = text;
+        this.text = text.replaceAll("\\r\\n", "<br/>");
         this.personid = personid;
         this.task_time = time;
         this.task_day = day;
         this.task_month = month;
         this.task_year = year;
+        
     }
 
     public Long getPersonid() {
@@ -135,7 +136,7 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "esa.titan.taskplanner.Task[ id=" + id + " ]";
+        return "Task ["+hashCode()+"] "+getText();
     }
     
 }

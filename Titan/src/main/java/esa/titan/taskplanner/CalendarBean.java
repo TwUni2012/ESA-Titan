@@ -73,6 +73,8 @@ public class CalendarBean {
         enableManualInput = false;
         showInput = true;
         boundary = "inactive";
+        
+        currentDate=new Date();
     }
 
     public boolean isShowInput() {
@@ -125,11 +127,10 @@ public class CalendarBean {
     }
 
     public String getCurrentDateAsText() {
-         Logger.getLogger(CalendarBean.class.getName()).log(Level.INFO, "getCurrentDateAsText()");
-        Date currentDate = getCurrentDate();
-        if (currentDate != null) {
-            return DateFormat.getDateInstance(DateFormat.FULL).format(
-                    currentDate);
+        Logger.getLogger(CalendarBean.class.getName()).log(Level.INFO, "getCurrentDateAsText()");
+        Date date = getCurrentDate();
+        if (date != null) {
+            return DateFormat.getDateInstance(DateFormat.FULL).format(date);
         }
         
         return null;
@@ -181,5 +182,22 @@ public class CalendarBean {
 
     public void setBoundary(String boundary) {
         this.boundary = boundary;
+    }
+    
+    /*
+     * returns the date the user selected in the calendar.
+     * if no date has been selected, return the current date
+     */
+    public String getSelectedDateAsText(){
+        Logger.getLogger(CalendarBean.class.getName()).log(Level.INFO, "getSelectedDateAsText()");
+        Date date = getSelectedDate();
+        if (date != null) {
+            return DateFormat.getDateInstance(DateFormat.FULL,getLocale()).format(date);
+        }
+        else if((date=getCurrentDate())!=null){
+            return DateFormat.getDateInstance(DateFormat.FULL,getLocale()).format(date);
+        }
+        
+        return null;
     }
 }
