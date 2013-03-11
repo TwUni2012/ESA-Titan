@@ -15,9 +15,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RSSFeedFacade extends AbstractFacade<RSSFeed> {
-//  @PersistenceContext(unitName = "esa_Titan_war_1.0-SNAPSHOTPU")
-
-    @PersistenceContext(unitName = "PersitenceUnitTitan")
+  @PersistenceContext(unitName = "esa_Titan_war_1.0-SNAPSHOTPU")
+//    @PersistenceContext(unitName = "PersitenceUnitTitan")
     private EntityManager em;
 
     @Override

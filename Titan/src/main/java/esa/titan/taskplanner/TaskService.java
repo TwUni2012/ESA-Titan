@@ -21,7 +21,8 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class TaskService extends AbstractFacade<Task> {
 
-    @PersistenceContext(unitName = "PersitenceUnitTitan")
+//    @PersistenceContext(unitName = "PersitenceUnitTitan")
+    @PersistenceContext(unitName = "esa_Titan_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     @Override
