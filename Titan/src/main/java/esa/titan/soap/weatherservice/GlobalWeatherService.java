@@ -21,7 +21,7 @@ public class GlobalWeatherService implements Serializable {
 
     private Weather weather;
     private GlobalWeatherSoap soap;
-    private String country = "Germany", cityName;
+    private String country="Germany", cityName="";
     private City city = new City("Select A Country");
     private List<City> cities = new ArrayList<City>();
     

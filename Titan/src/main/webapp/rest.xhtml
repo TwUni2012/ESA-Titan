@@ -26,7 +26,7 @@ and open the template in the editor.
                         <f:selectItems value="#{newsticker.categories}"/>
                     </h:selectOneMenu></td>
                     <td><h:outputLabel value="#{newsticker.theGuardianLink.format}" /></td>
-                    <td><h:outputLabel value="#{newsticker.theGuardianLink.parameter}" /></td>
+                    <td><h:inputTextarea value="#{newsticker.theGuardianLink.parameter}" /></td>
                     <td><h:commandButton class="btn btn-success" id="loadrest" value="Load" actionListener="#{newsticker.loadURL()}"/></td>
                 </tr>
             </table>
@@ -47,7 +47,7 @@ and open the template in the editor.
         <h:form id="restoutputform" class="form-horizontal">
             <table class="table" style="width: 100%" >
                 <tr>
-                    <td><h:graphicImage alt="The image could not be found." value="#{newsticker.articleManager.currentArticle.imageUrl}" width="300" height="200"/></td>
+                    <td><a href="#{newsticker.articleManager.currentArticle.url}"><h:graphicImage alt="The image could not be found." value="#{newsticker.articleManager.currentArticle.imageUrl}" width="300" height="200"/></a></td>
                     <td><h:outputLabel value="#{newsticker.articleManager.currentArticle.content}"/></td>
                     <td><h:outputLabel value="#{newsticker.articleManager.currentArticle.publicationDate}"/></td>
                 </tr>
