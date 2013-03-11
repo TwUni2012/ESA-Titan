@@ -18,11 +18,15 @@
     </h:head>
     <h:body>
         <center>
-            <a href="http://localhost:8080/Titan">
-                <h3>Task Planner</h3>
-            </a>
-            Logged in as: #{user.name}
-            <br/><br/>
+            <div class="navbar">
+                <div class=" navbar-inner">
+                    <a class="brand" href="#">Task Planner</a>
+                    <ul class="nav">
+                        <li><a href="../../Titan#ejb">Back to Main Page</a></li>
+                        <li><a href="#">Logged in as: #{user.name}</a></li>
+                    </ul>
+                </div>
+            </div>
             <!-- groesse noch anpassen, mit style scheint das net zu funktionieren-->
             <h:form id="calendarform">
                 <table width="70%" border="1">
@@ -48,8 +52,7 @@
                                     <h:outputText value="#{task.text}" escape="false"/>
                                 </h:column>
                                 <h:column>
-                                    <h:commandButton class="btn-danger" value="Delete Task">
-                                        <f:ajax listener="#{user.deleteTask(task.hashCode())}" event="click" render="tasklist"/>
+                                    <h:commandButton class="btn-danger" value="Delete Task" actionListener="#{user.deleteTask(task.hashCode())}">
                                     </h:commandButton>
                                 </h:column>
                             </h:dataTable>
