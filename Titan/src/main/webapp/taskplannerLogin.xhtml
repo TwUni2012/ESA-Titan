@@ -13,13 +13,13 @@
         <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
         <h:outputScript library="js" name="jfeed.js"/>
         <style type="text/css">
-            .column1 { width: 99%; text-align: left }
+            .column1 { width: 99%; text-align: left; }
         </style>
     </h:head>
     <h:body>
         <center>
             <a href="http://localhost:8080/Titan">
-            <h3>Task Planner</h3>
+                <h3>Task Planner</h3>
             </a>
             Logged in as: #{user.name}
             <br/><br/>
@@ -39,11 +39,12 @@
                                 <f:ajax event="change" execute="calendarform:calendar" render="calendarform:selecteddate calendarform:tasklist"/>
                             </rich:calendar>
                         </td>
-                        <td rowspan="2" valign="top" align="center">
+                        <td rowspan="3" valign="top" align="center">
                             <h4>Tasks for <h:outputText id="selecteddate" value="#{user.calendar.selectedDateAsText}"></h:outputText></h4>
                             <br/>
                             <h:dataTable columnClasses="column1,column2" style="width: 100%" id="tasklist" value="#{user.personTasksForSelectedDate}" var="task">
                                 <h:column>
+                                    <center><h5>#{task.time}</h5></center>
                                     <h:outputText value="#{task.text}" escape="false"/>
                                 </h:column>
                                 <h:column>
@@ -56,7 +57,15 @@
                     </tr>
                     <tr>
                         <td valign="top" align="center">
-                            <h5>New Task:</h5>
+                            <h5>Enter Time: (optional)</h5>
+                            <h:inputText id="hour" style="width: 20px" maxlength="2" value="#{user.hour}"/>
+                            :
+                            <h:inputText id="minute" style="width: 20px" maxlength="2" value="#{user.minute}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="center">
+                            <h5>Task Text:</h5>
                             <h:inputTextarea id="newtasktext" style="width: 300px;height: 200px" value="#{user.tasktext}">
                             </h:inputTextarea>
                             <br/>

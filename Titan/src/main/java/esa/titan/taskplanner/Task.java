@@ -13,21 +13,21 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+
 /**
  *
  * @author tiloW7-2012
  */
 @Entity
 public class Task implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
 //    @Temporal(javax.persistence.TemporalType.DATE)
 //    @Column(name="taskdate")
 //    private Date date;
-
     private String text;
     private Long personid;
     private String task_time;
@@ -36,28 +36,39 @@ public class Task implements Serializable {
     private int task_year;
 //    @ManyToOne
 //    private Person person;
-    
+
     public Task() {
     }
 
-    public Task(String text, Long personid, String time, int day, int month, int year) {
+    public Task(String text, Long personid, String hour, String minute, int day, int month, int year) {
         this.text = text.replaceAll("\\r\\n", "<br/>");
         this.personid = personid;
-        this.task_time = time;
         this.task_day = day;
         this.task_month = month;
         this.task_year = year;
-        
+
+        try {
+            int h = Integer.parseInt(hour);
+            int m = Integer.parseInt(minute);
+            if (h >= 0 && h <= 23 && m >= 0 && m <= 59) {
+                System.out.println("Range Check passed");
+                this.task_time = (h < 10 ? "0" : "") + hour + ":" + (m < 10 ? "0" : "") + minute;
+            } else {
+                this.task_time = "";
+            }
+        } catch (Exception e) {
+            this.task_time = "";
+        }
     }
 
-    public Long getPersonid() {
+public Long getPersonid() {
         return personid;
     }
 
     public void setPersonid(Long personid) {
         this.personid = personid;
     }
-    
+
     public String getText() {
         return text;
     }
@@ -105,7 +116,7 @@ public class Task implements Serializable {
     public void setYear(int year) {
         this.task_year = year;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -115,14 +126,14 @@ public class Task implements Serializable {
     }
 
     @Override
-    public int hashCode() {
+        public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+        public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Task)) {
             return false;
@@ -135,8 +146,7 @@ public class Task implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Task ["+hashCode()+"] "+getText();
+        public String toString() {
+        return "Task [" + hashCode() + "] " + getText();
     }
-    
 }

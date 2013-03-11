@@ -44,7 +44,7 @@ public class User {
     private String name = "a"; //rückgängig machen!
     private String password = "a"; //rückgängig machen!
     private String tasktext = "";
-    private String time = "00:00";
+    private String hour,minute;
 
     public User() {
         Logger.getLogger(User.class.getName()).log(Level.INFO, "new User");
@@ -78,6 +78,22 @@ public class User {
         return personTasks;
     }
 
+    public void setMinute(String minute) {
+        this.minute = minute;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
+
+    public String getMinute() {
+        return minute;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+    
     public List<Task> getPersonTasksForSelectedDate() {
 
         try {
@@ -144,11 +160,13 @@ public class User {
             int month = date.getMonth();
             int year = date.getYear();
             Long personid = currentPerson.getId();
-            Task task = new Task(tasktext, personid, time, day, month, year);
+            Task task = new Task(tasktext, personid, hour, minute, day, month, year);
             LOGGER.log(Level.INFO, "New Task: " + task);
             taskService.create(task);
         }
 
+        hour="";
+        minute="";
         tasktext = "";
 
     }
