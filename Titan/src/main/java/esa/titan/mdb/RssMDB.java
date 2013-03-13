@@ -5,7 +5,6 @@
 package esa.titan.mdb;
 
 import esa.titan.mdb.entity.RSSFeed;
-import esa.titan.mdb.sb.RSSFeedFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -47,10 +46,10 @@ public class RssMDB implements MessageListener {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("esa_Titan_war_1.0-SNAPSHOTPU");
     EntityManager em = emf.createEntityManager();
-    
-    // ohne JTA
-    //    em.getTransaction().begin();
-    //    Fehler: Use UserTransaction
+//    
+//    // ohne JTA
+//    //    em.getTransaction().begin();
+//    //    Fehler: Use UserTransaction
     RSSFeed rf = new RSSFeed();
     rf.setFeed(msg);
     System.out.println(rf);

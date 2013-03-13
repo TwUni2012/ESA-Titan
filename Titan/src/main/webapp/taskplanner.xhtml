@@ -16,7 +16,7 @@ and open the template in the editor.
     <div>
       <h2>Task Planner <small>with Login</small></h2>
       <h:form id="login" class="form-horizontal">
-        <table class="table" style="width: 100%">
+        <table class="table table-striped" style="width: 100%">
           <tr>
             <td><label>Name</label></td>
             <td><h:inputText id="name" value="#{user.name}"/></td>
@@ -27,7 +27,7 @@ and open the template in the editor.
           </tr>
           <tr>
             <td></td>
-            <td><h:commandButton class="btn btn-success" value="Login" action="#{user.login()}"/> 
+            <td><h:commandButton class="btn" value="Login" action="#{user.login()}"/> 
               <!--action, check login and open the correct taskplanner--> 
             </td>
           </tr>

@@ -18,13 +18,22 @@ and open the template in the editor.
       <h2>Neuen RSS-Feed senden:</h2>
       <hr/>
       <form class="form-inline" method="post" action="RSSServlet">
-        <input type="text" placeholder="RSS-Feed" name="rssurl"/>
-        <input class="btn btn-success" type="submit" value="Senden"/>
+        <input id="input" type="text" placeholder="RSS-Feed" name="rssurl"/>
+        <a id="sendrss" href="#" class="btn">Senden</a>
       </form>
       <hr/>
       <h2>Eingetragene RSS-Feeds:</h2>
-      <!--<a href="rssfeed/rSSFeed/List.xhtml">List</a>-->
-      <ui:include src="rssfeed/rSSFeed/List.xhtml"/>
+      TO-DO
     </div>
   </body>
+    <script>
+        
+        $(document).on("click","a#sendrss",function(){
+            var val = $('#input').val();
+            $.post('RSSServlet',{rssurl: val},function(data){
+                alert("Ihre Daten wurden übermittelt");
+                $('#input').text('');
+            });
+        })
+        </script>
 </html>
