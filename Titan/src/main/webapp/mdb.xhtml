@@ -7,33 +7,43 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-  <h:head>
-    <h:outputStylesheet library="css" name="bootstrap.css"/>
-    <h:outputStylesheet library="css" name="style.css"/>
-    <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
-    <h:outputScript library="js" name="jfeed.js"/>
-  </h:head>
-  <body>
-    <div>
-      <h2>Neuen RSS-Feed senden:</h2>
-      <hr/>
-      <form class="form-inline" method="post" action="RSSServlet">
-        <input id="input" type="text" placeholder="RSS-Feed" name="rssurl"/>
-        <a id="sendrss" href="#" class="btn">Senden</a>
-      </form>
-      <hr/>
-      <h2>Eingetragene RSS-Feeds:</h2>
-      TO-DO
-    </div>
-  </body>
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
+        <h:outputScript library="js" name="jfeed.js"/>
+    </h:head>
+    <body>
+        <div>
+            <h2>Neuen RSS-Feed senden:</h2>
+            <hr/>
+            <form class="form-inline" method="post" action="RSSServlet">
+                <input id="input" type="text" placeholder="RSS-Feed" name="rssurl"/>
+                <a id="sendrss" href="#" class="btn">Senden</a>
+            </form>
+            <hr/>
+            <h2>Eingetragene RSS-Feeds:</h2>
+            <table id="resTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>URL</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </body>
     <script>
-        
-        $(document).on("click","a#sendrss",function(){
+
+        $(document).on("click", "a#sendrss", function() {
             var val = $('#input').val();
-            $.post('RSSServlet',{rssurl: val},function(data){
+            $.get('RSSServlet', {rssurl: val}, function(data) {
+                $('#resTable').children('tbody').append(data);
                 alert("Ihre Daten wurden übermittelt");
-                $('#input').text('');
             });
         })
-        </script>
+    </script>
 </html>

@@ -47,9 +47,7 @@ public class RssMDB implements MessageListener {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("esa_Titan_war_1.0-SNAPSHOTPU");
     EntityManager em = emf.createEntityManager();
 //    
-//    // ohne JTA
-//    //    em.getTransaction().begin();
-//    //    Fehler: Use UserTransaction
+
     RSSFeed rf = new RSSFeed();
     rf.setFeed(msg);
     System.out.println(rf);
