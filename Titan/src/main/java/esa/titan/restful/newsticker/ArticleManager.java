@@ -1,11 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package esa.titan.restful.newsticker;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +33,6 @@ public class ArticleManager {
     public Article getCurrentArticle() {
         try {
             return currentArticle;
-//            return articles.get(currentArticleIndex);
         } catch (NullPointerException npe) {
             Logger.getLogger(Newsticker.class.getName()).log(Level.WARNING, "NullPointerException: something went wrong in 'getCurrentArticle'");
         } catch (Exception e) {
