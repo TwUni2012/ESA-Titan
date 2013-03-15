@@ -26,7 +26,7 @@ and open the template in the editor.
                         <f:selectItems value="#{newsticker.categories}"/>
                     </h:selectOneMenu></td>
                     <td><h:outputLabel value="#{newsticker.theGuardianLink.format}" /></td>
-                    <td><h:inputTextarea value="#{newsticker.theGuardianLink.parameter}" /></td>
+                    <td><h:outputLabel value="#{newsticker.theGuardianLink.parameter}" /></td>
                     <td><h:commandButton class="btn" id="loadrest" value="Load" actionListener="#{newsticker.loadURL()}"/></td>
                 </tr>
             </table>
