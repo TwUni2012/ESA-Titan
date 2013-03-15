@@ -4,20 +4,20 @@
  */
 package esa.titan.taskplanner;
 
+import esa.titan.taskplanner.calendar.CalendarBean;
+import esa.titan.taskplanner.entity.Person;
+import esa.titan.taskplanner.entity.Task;
+import esa.titan.taskplanner.persistence.PersonService;
+import esa.titan.taskplanner.persistence.TaskService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
-import java.util.Date;
-import java.util.Map;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 
 /**
  *
@@ -26,9 +26,9 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 @ManagedBean
 @SessionScoped
 //@RequestScoped
-public class User {
+public class Taskplanner {
 
-    private static final Logger LOGGER = Logger.getLogger(User.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Taskplanner.class.getName());
     private Person currentPerson;
     private List<Task> personTasks = new ArrayList<Task>();
     @EJB
@@ -46,8 +46,8 @@ public class User {
     private String tasktext = "";
     private String hour,minute;
 
-    public User() {
-        Logger.getLogger(User.class.getName()).log(Level.INFO, "new User");
+    public Taskplanner() {
+        Logger.getLogger(Taskplanner.class.getName()).log(Level.INFO, "new User");
     }
 
     public String getTasktext() {
@@ -97,11 +97,11 @@ public class User {
     public List<Task> getPersonTasksForSelectedDate() {
 
         try {
-            LOGGER.log(Level.INFO, "getPersonTasksForSelectedDate " + personTasks.size());
+            LOGGER.log(Level.INFO, "getPersonTasksForSelectedDate {0}", personTasks.size());
         } catch (Exception e) {
         }
 
-        List<Task> dateTasks=new ArrayList<Task>();
+        List<Task> dateTasks = new ArrayList<Task>();
 
         try {
             dateTasks = taskService.getPersonTasksForSelectedDate(
@@ -115,7 +115,7 @@ public class User {
 
         for (Task t : personTasks) {
             try {
-                LOGGER.log(Level.INFO, "\t-> " + t.getText());
+                LOGGER.log(Level.INFO, "\t-> {0}", t.getText());
             } catch (Exception e) {
             }
         }
@@ -133,10 +133,10 @@ public class User {
             }
         }
 
-        LOGGER.log(Level.INFO, "Login: " + login);
+        LOGGER.log(Level.INFO, "Login: {0}", login);
 
-        LOGGER.log(Level.INFO, "Name: " + this.name);
-        LOGGER.log(Level.INFO, "Password: " + this.password);
+        LOGGER.log(Level.INFO, "Name: {0}", this.name);
+        LOGGER.log(Level.INFO, "Password: {0}", this.password);
         // database access to validate the users
         if (login) {
             return "taskplannerLogin";
@@ -155,26 +155,24 @@ public class User {
 
     public void saveTask() {
         Date date = calendarBean.getSelectedDate();
+        
         if (date != null) {
             int day = date.getDate();
             int month = date.getMonth();
             int year = date.getYear();
             Long personid = currentPerson.getId();
             Task task = new Task(tasktext, personid, hour, minute, day, month, year);
-            LOGGER.log(Level.INFO, "New Task: " + task);
+            LOGGER.log(Level.INFO, "New Task: {0}", task);
             taskService.create(task);
         }
 
-        hour="";
-        minute="";
+        hour = "";
+        minute = "";
         tasktext = "";
-
     }
 
     public void deleteTask(Integer taskId) {
-        LOGGER.log(Level.INFO, "Delete Task " + taskId.intValue());
-
+        LOGGER.log(Level.INFO, "Delete Task {0}", taskId.intValue());
         taskService.delete(taskId.intValue());
     }
-
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package esa.titan.taskplanner;
+package esa.titan.taskplanner.calendar;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -10,17 +10,15 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateful;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
 
 /*
- * Code from http://www.mastertheboss.com/richfaces/richfaces-calendar-example
+ * code from http://www.mastertheboss.com/richfaces/richfaces-calendar-example
  */
 @Stateful
 @SessionScoped
-//@ManagedBean
 public class CalendarBean {
 
     private static final String[] WEEK_DAY_LABELS = new String[]{"Sun *",

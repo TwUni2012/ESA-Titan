@@ -19,16 +19,15 @@ and open the template in the editor.
         <table class="table table-striped" style="width: 100%">
           <tr>
             <td><label>Name</label></td>
-            <td><h:inputText id="name" value="#{user.name}"/></td>
+            <td><h:inputText id="name" value="#{taskplanner.name}"/></td>
           </tr>
           <tr>
             <td><label>Password</label></td>
-            <td><h:inputSecret value="#{user.password}"/></td>
+            <td><h:inputSecret value="#{taskplanner.password}"/></td>
           </tr>
           <tr>
             <td></td>
-            <td><h:commandButton class="btn" value="Login" action="#{user.login()}"/> 
-              <!--action, check login and open the correct taskplanner--> 
+            <td><h:commandButton class="btn" value="Login" action="#{taskplanner.login()}"/> 
             </td>
           </tr>
         </table>

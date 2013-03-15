@@ -2,22 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package esa.titan.taskplanner;
+package esa.titan.taskplanner.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
 
-/**
- *
- * @author tiloW7-2012
- */
 @Entity
 public class Task implements Serializable {
 
@@ -25,17 +17,12 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    @Temporal(javax.persistence.TemporalType.DATE)
-//    @Column(name="taskdate")
-//    private Date date;
     private String text;
     private Long personid;
     private String task_time;
     private int task_day;
     private int task_month;
     private int task_year;
-//    @ManyToOne
-//    private Person person;
 
     public Task() {
     }
@@ -61,7 +48,7 @@ public class Task implements Serializable {
         }
     }
 
-public Long getPersonid() {
+    public Long getPersonid() {
         return personid;
     }
 
@@ -76,14 +63,6 @@ public Long getPersonid() {
     public void setText(String text) {
         this.text = text;
     }
-//
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
 
     public String getTime() {
         return task_time;
@@ -126,14 +105,14 @@ public Long getPersonid() {
     }
 
     @Override
-        public int hashCode() {
+    public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
-        public boolean equals(Object object) {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Task)) {
             return false;
@@ -146,7 +125,7 @@ public Long getPersonid() {
     }
 
     @Override
-        public String toString() {
+    public String toString() {
         return "Task [" + hashCode() + "] " + getText();
     }
 }

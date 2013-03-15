@@ -23,7 +23,7 @@
                     <a class="brand" href="#">Task Planner</a>
                     <ul class="nav">
                         <li><a href="../../Titan#ejb">Back to Main Page</a></li>
-                        <li><a href="#">Logged in as: #{user.name}</a></li>
+                        <li><a href="#">Logged in as: #{taskplanner.name}</a></li>
                     </ul>
                 </div>
             </div>
@@ -34,25 +34,25 @@
                         <td width="300" valign="middle" align="center">
                             <h5>Select Date:</h5>
                             <rich:calendar id="calendar"
-                                           value="#{user.calendar.selectedDate}"
-                                           locale="#{user.calendar.locale}"
-                                           popup="#{user.calendar.popup}"
-                                           datePattern="#{user.calendar.pattern}"
+                                           value="#{taskplanner.calendar.selectedDate}"
+                                           locale="#{taskplanner.calendar.locale}"
+                                           popup="#{taskplanner.calendar.popup}"
+                                           datePattern="#{taskplanner.calendar.pattern}"
                                            >
                                 <!--                <f:ajax event="change" execute="calendarform:calendar" render="calendarform:currentdate calendarform:currentdate2 calendarform:currentdate3 calendarform:currentdate4"/>-->
                                 <f:ajax event="change" execute="calendarform:calendar" render="calendarform:selecteddate calendarform:tasklist"/>
                             </rich:calendar>
                         </td>
                         <td rowspan="3" valign="top" align="center">
-                            <h4>Tasks for <h:outputText id="selecteddate" value="#{user.calendar.selectedDateAsText}"></h:outputText></h4>
+                            <h4>Tasks for <h:outputText id="selecteddate" value="#{taskplanner.calendar.selectedDateAsText}"></h:outputText></h4>
                             <br/>
-                            <h:dataTable columnClasses="column1,column2" style="width: 100%" id="tasklist" value="#{user.personTasksForSelectedDate}" var="task">
+                            <h:dataTable columnClasses="column1,column2" style="width: 100%" id="tasklist" value="#{taskplanner.personTasksForSelectedDate}" var="task">
                                 <h:column>
                                     <center><h5>#{task.time}</h5></center>
                                     <h:outputText value="#{task.text}" escape="false"/>
                                 </h:column>
                                 <h:column>
-                                    <h:commandButton class="btn-danger" value="Delete Task" actionListener="#{user.deleteTask(task.hashCode())}">
+                                    <h:commandButton class="btn-danger" value="Delete Task" actionListener="#{taskplanner.deleteTask(task.hashCode())}">
                                     </h:commandButton>
                                 </h:column>
                             </h:dataTable>
@@ -61,18 +61,18 @@
                     <tr>
                         <td valign="top" align="center">
                             <h5>Enter Time: (optional)</h5>
-                            <h:inputText id="hour" style="width: 20px" maxlength="2" value="#{user.hour}"/>
+                            <h:inputText id="hour" style="width: 20px" maxlength="2" value="#{taskplanner.hour}"/>
                             :
-                            <h:inputText id="minute" style="width: 20px" maxlength="2" value="#{user.minute}"/>
+                            <h:inputText id="minute" style="width: 20px" maxlength="2" value="#{taskplanner.minute}"/>
                         </td>
                     </tr>
                     <tr>
                         <td valign="top" align="center">
                             <h5>Task Text:</h5>
-                            <h:inputTextarea id="newtasktext" style="width: 300px;height: 200px" value="#{user.tasktext}">
+                            <h:inputTextarea id="newtasktext" style="width: 300px;height: 200px" value="#{taskplanner.tasktext}">
                             </h:inputTextarea>
                             <br/>
-                            <h:commandButton class="btn" value="Save Task" actionListener="#{user.saveTask}">
+                            <h:commandButton class="btn" value="Save Task" actionListener="#{taskplanner.saveTask}">
                             </h:commandButton>
                         </td>
                     </tr>

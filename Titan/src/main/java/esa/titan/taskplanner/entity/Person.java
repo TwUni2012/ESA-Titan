@@ -2,22 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package esa.titan.taskplanner;
+package esa.titan.taskplanner.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-/**
- *
- * @author tiloW7-2012
- */
 @Entity
 public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,9 +20,6 @@ public class Person implements Serializable {
     private String name;
     private String password;
 
-//    @OneToMany(mappedBy="person")
-//    private Set<Task> tasks;
-    
     public Person() {
     }
 
@@ -36,14 +28,6 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-//    public Set<Task> getTasks() {
-//        return tasks;
-//    }
-//
-//    public void setTasks(Set<Task> tasks) {
-//        this.tasks = tasks;
-//    }
- 
     public String getName() {
         return name;
     }
@@ -67,7 +51,7 @@ public class Person implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -92,5 +76,4 @@ public class Person implements Serializable {
     public String toString() {
         return "esa.titan.taskplanner.Person[ id=" + id + " ]";
     }
-    
 }

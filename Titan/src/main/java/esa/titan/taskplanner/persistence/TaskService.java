@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package esa.titan.taskplanner;
+package esa.titan.taskplanner.persistence;
 
 import esa.titan.mdb.sb.AbstractFacade;
-import java.util.Date;
+import esa.titan.taskplanner.entity.Task;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,14 +14,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author tiloW7-2012
- */
 @Stateless
 public class TaskService extends AbstractFacade<Task> {
 
-//    @PersistenceContext(unitName = "PersitenceUnitTitan")
     @PersistenceContext(unitName = "esa_Titan_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -45,6 +40,7 @@ public class TaskService extends AbstractFacade<Task> {
     }
 
     public List<Task> getPersonTasksForSelectedDate(Long personid, int year, int month, int day) {
+        Logger.getLogger(TaskService.class.getName()).log(Level.INFO, "in getPersonTasksSelectedDate");
         TypedQuery<Task> query = em.createQuery("SELECT c FROM Task c WHERE "
                 + "c.personid=:id "
                 + "AND c.task_year=:year AND c.task_month=:month "
