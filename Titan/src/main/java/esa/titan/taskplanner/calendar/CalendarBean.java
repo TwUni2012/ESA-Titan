@@ -61,7 +61,6 @@ public class CalendarBean {
     }
 
     public CalendarBean() {
-        Logger.getLogger(CalendarBean.class.getName()).log(Level.INFO, "new CalendarBean");
         locale = Locale.US;
         popup = false; // standard=true
         pattern = "MMM d, yyyy";
